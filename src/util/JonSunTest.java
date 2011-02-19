@@ -1,10 +1,10 @@
 
 package util;
 
-public class MainTest
+public class JonSunTest
 {
 	public static void main(String [] args)
 	{
-		System.out.println("Yay repository works!");
+		System.out.println("Jon Sun can commit!");
 	}
 }
