@@ -1,5 +1,5 @@
 
-package test;
+package util;
 
 public class MainTest
 {
