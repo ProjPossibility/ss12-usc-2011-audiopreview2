@@ -1,6 +1,9 @@
 package util;
 
 public class AndyTest{
-	System.out.println("andy can commit");
 	
+	public static void main(String[] args)
+	{
+		System.out.println("andy can commit");
+	}
 }
