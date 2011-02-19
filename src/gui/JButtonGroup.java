@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -18,8 +19,11 @@ public class JButtonGroup extends JPanel implements ActionListener {
 	final int BUTTON_HEIGHT = 30;
 	ArrayList<JButton> group;
 	private int groupFloor;
-	public JButtonGroup(int numGroups, State state, int floor){
+	
+	public JButtonGroup(ConcertHallPanel p, int numGroups, State state, int floor){
+		parent = p;
 		groupFloor = floor;
+		
 		changePanelSize(numGroups);
 		group = new ArrayList<JButton>();
 		addButtons(numGroups);
@@ -31,13 +35,16 @@ public class JButtonGroup extends JPanel implements ActionListener {
 	}
 	public void changePanelSize(int numGroups){
 		if(numGroups == 1){
-			
+			this.setSize(30,80);
+			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		}
 		else if(numGroups == 2){
-			
+			this.setSize(30,60);
+			this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		}
 		else if(numGroups == 3){
-			
+			this.setSize(90,30);
+			this.setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
 		}
 	}
 	public void storeButton(JButton j){
