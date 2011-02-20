@@ -11,6 +11,8 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import util.midi.MidiControl;
+
 public class ConcertHallPanel extends JPanel implements KeyListener
 {
 	/**
@@ -21,6 +23,8 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	 * Height of JPanel
 	 */
 	public int WINDOW_HEIGHT = 600;
+	
+	MidiControl midicontrol = new MidiControl();
 	Rectangle bgrect;
 	
 	int NUM_ROWS = 4;
@@ -59,8 +63,8 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 					if (j == 1 || j == 2 || j == 3)
 						continue;
 				}
-				seatsections[i][j] = new GUISeatSection(i,j);
-				seatsections[i][j].setLabel(i + " , " + j);
+				seatsections[i][j] = new GUISeatSection(this, i,j);
+				//seatsections[i][j].setLabel(i + " , " + j);
 				seatsections[i][j].setLocation(50 + 125 * j, 50 + 125 * i);
 				seatsections[i][j].setSize( 125 ,  125 );
 				add(seatsections[i][j]);
@@ -139,6 +143,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 			case KeyEvent.VK_SPACE:
 				//seatsections[currentSelectedRow][currentSelectedCol]
 				//play soundbyte
+				midicontrol.play();
 				break;
 		}
 	}
@@ -152,7 +157,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				seatsections[i][j].setGSS_Color(State.NOT_SELECTED);
 			}
 		seatsections[currentSelectedRow][currentSelectedCol].setGSS_Color(State.SELECTED);
-		
+		midicontrol.ripChannels(seatsections[currentSelectedRow][currentSelectedCol].getSeatSection());
 	}
 	
 	private void playSoundDescription()
