@@ -31,8 +31,8 @@ public class UndirectedInstrument extends Instrument {
 
 	@Override
 	public double getAdjustedVolume(SeatSection s) {
-		
 		return channelVolume/Math.pow(iLocation.distance(s.getLocation()),1.2);
+
 	}
 
 }
