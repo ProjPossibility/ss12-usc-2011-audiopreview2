@@ -15,10 +15,14 @@ public class MainApplet extends JApplet {
 			
 			c.setSize( c.WINDOW_WIDTH,c.WINDOW_HEIGHT);	
 			c.setVisible(true);
+			c.setFocusable(true);
+			c.requestFocus();
 			/*JFrame frame = new JFrame();
 			frame.add(c);
 			frame.setVisible(true);*/
 			this.add(c);
+			c.setFocusable(true);
+			c.requestFocus();
 			
 		  }
 }
