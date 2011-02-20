@@ -27,17 +27,19 @@ public class MidiControl {
 	int channels;
 	SeatSection seat;
 	
+	private static final double ROOTTWO = Math.sqrt(2);
+	
 	public MidiControl()
 	{
-		ripChannels();
+		//ripChannels(seat);
 	}
 	
-	public static void main(String[] args)
+	/**public static void main(String[] args)
 	{
 		MidiControl m = new MidiControl();
 		m.play();
 		
-	}
+	}*/
 	
 	
 	/**
@@ -45,9 +47,9 @@ public class MidiControl {
 	 * 
 	 * @param sequence the base .MID file sent from the GUI
 	 */
-	public void ripChannels()
+	public void ripChannels(SeatSection s)
 	{
-		//seat = s;
+		seat = s;
 		try
 		{
 			songFile = new File("midi/verdi_requiem.mid");
@@ -105,6 +107,7 @@ public class MidiControl {
         				{
         					directed = false;
         				}
+        				
         				//build point
         				double x = Double.parseDouble(input.nextLine());
         				double y = Double.parseDouble(input.nextLine());
@@ -121,6 +124,24 @@ public class MidiControl {
         			}
         			if(directed)
         			{
+        				Vector3d v;
+        				if(name.equals("TROMBONE"))
+        				{
+        					v = new Vector3d(1/ROOTTWO,-1/ROOTTWO,0);
+        				}
+        				else if(name.equals("TRUMPET"))
+        				{
+        					v = new Vector3d(1,0,0);
+        				}
+        				else if(name.equals("TUBA"))
+        				{
+        					v = new Vector3d(1/ROOTTWO,1/ROOTTWO,0);
+        				}
+        				else
+        				{
+        					//default as tuba
+        					v = new Vector3d(1/ROOTTWO,1/ROOTTWO,0);
+        				}
         				DirectedInstrument i = new DirectedInstrument(name, channels, volume, instrumentPoints[channels], new Vector3d(1,0,0), (double)0.5);
         				instruments[channels] = i;
         			}
