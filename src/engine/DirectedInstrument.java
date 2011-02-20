@@ -29,11 +29,24 @@ public class DirectedInstrument extends Instrument
 			seat.getLocation().y - this.getLocation().y, 
 			seat.getLocation().z - this.getLocation().z);
 		
-		double theta = Math.acos(seatVector.dot(iDirection) / 
-			(seatVector.length() * iDirection.length()));
+		double temp = seatVector.dot(iDirection) / 
+			(seatVector.length() * iDirection.length());
+		
+		if(temp > 1)
+		{
+			temp = 1;
+		}
+		else if(temp < -1)
+		{
+			temp = -1;
+		}
+		
+		double theta = Math.acos(temp);
+		
+		System.out.println("THETA " + theta);
 		
 		//the seat is in front of the instrument
-		if(theta >= Math.PI / 2)
+		if(theta <= Math.PI / 2)
 		{
 			System.out.println("SEAT " + seat + " IS IN FRONT OF INSTRUMENT " + this);
 			
@@ -47,7 +60,7 @@ public class DirectedInstrument extends Instrument
 			
 			return iBackwardPortion * channelVolume /
 				Math.pow(iLocation.distance(seat.getLocation()), DISTANCE_DROP_FACTOR);	
-	}
+		}
 			
 	}
 
