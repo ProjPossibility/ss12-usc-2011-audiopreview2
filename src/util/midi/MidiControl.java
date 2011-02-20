@@ -13,13 +13,17 @@ import javax.vecmath.Point3d;
 public class MidiControl {
 	
 	Instrument[] instruments = new Instrument[16];
+	int[] instrumentVolumes = new int[16];
+	double[] scaledVolumes = new double[16];
+	Point3d[] instrumentPoints = new Point3d[16];
+	double volumeAverage = 0, scaleAverage;
 	File songFile, textFile;
 	Sequence sequence;
 	Sequencer sequencer;
 	Receiver receiver;
 	Synthesizer synthesizer;
-	Point3d pTemp;
 	int channels;
+	SeatSection seat;
 	
 	
 	/**
@@ -27,9 +31,9 @@ public class MidiControl {
 	 * 
 	 * @param sequence the base .MID file sent from the GUI
 	 */
-	public void ripChannels()
+	public void ripChannels(SeatSection s)
 	{
-		
+		seat = s;
 		try
 		{
 			songFile = new File("verdi_requiem.mid");
@@ -83,7 +87,15 @@ public class MidiControl {
         				{
         					directed = false;
         				}
+        				//build point
+        				double x = Double.parseDouble(input.nextLine());
+        				double y = Double.parseDouble(input.nextLine());
+        				double z = Double.parseDouble(input.nextLine());
+        				Point3d p = new Point3d(x,y,z);
+        				instrumentPoints[channels] = p;
+        				
         				volume = Integer.parseInt(input.nextLine());
+        				instrumentVolumes[channels] = volume;
         			}
         			catch(Exception e)
         			{
@@ -91,12 +103,12 @@ public class MidiControl {
         			}
         			if(directed)
         			{
-        				DirectedInstrument i = new DirectedInstrument(name, channels, volume, pTemp, null, (double)0.5);
+        				DirectedInstrument i = new DirectedInstrument(name, channels, volume, instrumentPoints[channels], null, (double)0.5);
         				instruments[channels] = i;
         			}
         			else
         			{
-        				UndirectedInstrument i = new UndirectedInstrument(name, channels, volume, pTemp);
+        				UndirectedInstrument i = new UndirectedInstrument(name, channels, volume, instrumentPoints[channels]);
         				instruments[channels] = i;
         			}
         			
@@ -111,9 +123,61 @@ public class MidiControl {
         	{
         		
         	}
+        	
+        	changeVolumes();
             
             
 		
+	}
+	
+	public void changeVolumes()
+	{
+		for(int i = 0; i <= channels; i++)
+		{
+			volumeAverage += instrumentVolumes[i];
+		}
+		volumeAverage = volumeAverage / (channels+1);
+		for(int i = 0; i <= channels; i++)
+		{
+			scaledVolumes[i] = instruments[i].getAdjustedVolume(seat);
+		}
+		for(int i = 0; i <= channels; i++)
+		{
+			scaleAverage += scaledVolumes[i];
+		}
+		scaleAverage = scaleAverage / (channels+1);
+		
+		double ratio = volumeAverage / scaleAverage;
+		
+		for(int i = 0; i <= channels; i++)
+		{
+			instrumentVolumes[i] = (int)(scaledVolumes[i]*ratio);
+		}
+		
+	}
+	
+	public void play()
+	{
+		sequencer.start();
+		
+		ShortMessage volumeMessage = new ShortMessage();
+        for(int i = 0; i <= channels; i++)
+        {
+        	try
+        	{
+        		volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, instrumentVolumes[i]);
+        		MidiSystem.getReceiver().send(volumeMessage, -1);
+        	}
+        	catch(Exception e)
+        	{
+        		System.out.println("Error changing the volumes");
+        	}
+        }
+	}
+	
+	public void stop()
+	{
+		sequencer.stop();
 	}
 
 }
