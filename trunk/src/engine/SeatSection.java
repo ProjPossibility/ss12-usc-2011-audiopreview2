@@ -59,5 +59,13 @@ public class SeatSection {
 	{
 		return voiceFile;
 	}
+	
+	/**
+	 * returns the name and location of the seat
+	 */
+	public String toString()
+	{
+		return ("Seat "+name+"  Coordinates: ("+loc.x+","+loc.y+","+loc.z+")");
+	}
 
 }
