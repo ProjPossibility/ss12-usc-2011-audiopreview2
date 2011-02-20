@@ -165,19 +165,16 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent event) {
-		// TODO Auto-generated method stub
 		int keypressed = event.getKeyCode();
 		//midicontrol1.stop();
 		switch(keypressed)
@@ -327,13 +324,10 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 			    clip.start();
 			    
 		} catch (UnsupportedAudioFileException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		} catch (IOException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -461,7 +455,6 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	
 	/*@Override
 	public void keyPressed(KeyEvent event) {
-		// TODO Auto-generated method stub
 		System.out.println("key input detected");
 		int keypressed = event.getKeyCode();
 		switch(keypressed)
