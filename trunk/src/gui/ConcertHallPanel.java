@@ -72,6 +72,9 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	 * the sound clip that tells what seat you have selected
 	 */
 	Clip clip;
+	/**
+	 * the linelistener that listens for the clip's end
+	 */
 	ALineListener thelinelistener;
 	/**
 	 * the stage of the clip
@@ -267,7 +270,8 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	}
 	
 	/**
-	 * play the sound clip of seat location selected
+	 * 	call stopSoundClip()
+	 *  call playSoundClip()
 	 */
 	private void playSoundDescription()
 	{
@@ -277,6 +281,12 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		playSoundClip();
 	}
 	
+	/**
+	 * play the soundclip of seat location selected
+	 * or the instructions of what button to press.
+	 * Increment clipStage
+	 * Listen for end of sound clip to know when to play next sound clip.
+	 */
 	private void playSoundClip()
 	{
 		try 
@@ -328,6 +338,9 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		}
 	}
 	
+	/**
+	 * stop the sound and remove the listener it has
+	 */
 	private void stopSoundClip()
 	{
 		if (clip != null)
@@ -367,6 +380,12 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		requestFocus();
 	}
 	
+	/**
+	 * 
+	 * @author Zach Boehm
+	 * internal class that implements LineListener
+	 * used for listener when sound is done and calls playSoundClip that will handle the next listener
+	 */
 	class ALineListener implements LineListener
 	{
 	      public void update(LineEvent event) 
