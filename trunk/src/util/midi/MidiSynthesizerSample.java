@@ -10,15 +10,18 @@ import javax.sound.midi.*;
 /**
  * MidiSynthesizerSample.java
  * Purpose: Sample code to be used for reference. Acts as a simple midi player that can change volumes of channels
- * Use when testing changing new MIDI channel properties
+ * Use when testing/changing new MIDI channel properties
  * 
- * @author Ryan
+ * @author Ryan Tenorio
  *
  */
 
 public class MidiSynthesizerSample {
 
-    
+    /**
+     * Main method
+     * @param args
+     */
     public static void main(String[] args) {
         // get all the default stuff
         try {
@@ -73,6 +76,10 @@ public class MidiSynthesizerSample {
         }
     }
     
+    /**
+     * Change the reverb (channel 91)
+     * @param value
+     */
     public static void setReverb(int value)
     {
         //int value = 60;
@@ -98,7 +105,11 @@ public class MidiSynthesizerSample {
     }
     catch(Exception e){}
     }
-
+    
+    /**
+     * 
+     * @param value
+     */
     public static void setVolume(int value) {
         
         /**try {

@@ -108,7 +108,7 @@ public class MidiControl {
 	/**
 	 * Create a new array of Instruments by pulling out the individual channels in the sequence
 	 * 
-	 * @param sequence the base .MID file sent from the GUI
+	 * @param s the base .MID file sent from the GUI
 	 */
 	public void ripChannels(SeatSection s)
 	{
@@ -321,7 +321,7 @@ public class MidiControl {
 	}
 	
 	/**
-	 * Play the sequencer
+	 * Play the sequencer and then change the volume
 	 */
 	public void play()
 	{
@@ -366,12 +366,22 @@ public class MidiControl {
 	        javax.sound.midi.MidiChannel[] channels = synthesizer.getChannels();
 	        ShortMessage volumeMessage = new ShortMessage();
 	        
+	        /**try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }*/
+	        
 	        for(int i = 0; i < channels.length; i++)
 	        {
+	        	if(instrumentVolumes[i] > 127)
+	        	{
+	        		instrumentVolumes[i] = 127;
+	        	}
 	            volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, instrumentVolumes[i]);
 	            MidiSystem.getReceiver().send(volumeMessage, -1);
 	        	//channels[i].controlChange(7, instrumentVolumes[i]);
-
 	        }
 	        //for(int i = 0; i < channels.length; i++)
 	        //{
@@ -396,6 +406,8 @@ public class MidiControl {
 				channels[i].controlChange(7, instrumentVolumes[i]);
 			}
 		}*/
+	    
+	    
 
 		
 		/**ShortMessage volumeMessage = new ShortMessage();
