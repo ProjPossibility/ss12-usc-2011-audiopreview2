@@ -14,7 +14,7 @@ import javax.vecmath.Vector3d;
 public class DirectedInstrument extends Instrument
 {
 	/** The default falling distance adjustment factor */
-	public static final int DISTANCE_DROP_FACTOR = 1;
+	public static final double DISTANCE_DROP_FACTOR = 1.2;
 	
 	/** The direction the instrument is pointed in */
 	protected Vector3d iDirection;
