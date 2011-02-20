@@ -12,9 +12,9 @@ public class DirectedInstrumentTester
 	{
 		System.out.println("DIRECTED INSTRUMENT TESTER");
 		
-		Point3d seatLoc = new Point3d(0, 0, 0);
-		Point3d instLoc = new Point3d(1, 1, 1);
-		Vector3d instDir = new Vector3d(5, 5, 5);
+		Point3d seatLoc = new Point3d(1, 1, 1);
+		Point3d instLoc = new Point3d(0, 0, 0);
+		Vector3d instDir = new Vector3d(-1, -1, -1);
 		
 		SeatSection seat = new SeatSection(seatLoc, "test", null);
 		
