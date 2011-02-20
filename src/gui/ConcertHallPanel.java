@@ -238,11 +238,13 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 			case KeyEvent.VK_1:
 				//seatsections[currentSelectedRow][currentSelectedCol]
 				//play soundbyte
+				stopSoundClip();
 				midicontrol2.stop();
 				midicontrol1.stop();
 				midicontrol1.play();
 				break;
 			case KeyEvent.VK_2:
+				stopSoundClip();
 				midicontrol1.stop();
 				midicontrol2.stop();
 				midicontrol2.play();
@@ -265,6 +267,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		seatsections[currentSelectedRow][currentSelectedCol].setGSS_Color(State.SELECTED);
 		
 		SeatSection seat = seatsections[currentSelectedRow][currentSelectedCol].getSeatSection();
+
 		midicontrol1.stop();
 		midicontrol1.ripChannels(seat);
 		midicontrol2.stop();
@@ -294,10 +297,10 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				soundFile = seatsections[currentSelectedRow][currentSelectedCol].getSeatSection().getVoiceFile();
 				break;
 			case 2:
-				soundFile = seatsections[currentSelectedRow][currentSelectedCol].getSeatSection().getVoiceFile();
+				soundFile = new File("..\\sounds\\PressOne.wav");
 				break;
 			case 3:
-				soundFile = seatsections[currentSelectedRow][currentSelectedCol].getSeatSection().getVoiceFile();
+				soundFile = new File("..\\sounds\\PressTwo.wav");
 				break;
 			default:
 				return;
@@ -320,7 +323,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 			      public void update(LineEvent event) {
 			        if (event.getType() == LineEvent.Type.STOP) 
 			        {
-			        	playSoundDescription();
+			        	playSoundClip();
 			        	event.getLine().close();
 			          //System.exit(0);
 			        }
@@ -346,7 +349,10 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	{
 		if (clip != null)
 			if (clip.isRunning())
+			{
 				clip.stop();
+				clip.close();
+			}
 		clipStage = 0;
 	}
 	
