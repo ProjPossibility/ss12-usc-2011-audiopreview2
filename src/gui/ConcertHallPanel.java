@@ -47,6 +47,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	int currentSelectedRow = 1;
 	int currentSelectedCol = 2;
 	Boolean inSubSectionMode;
+	Clip clip;
 	
 	public  ConcertHallPanel()
 	{
@@ -82,6 +83,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				add(seatsections[i][j]);
 			}
 		updateButtonGroupDisplays();
+		playSoundDescription();
 	}
 
 	
@@ -188,7 +190,10 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				 sound = AudioSystem.getAudioInputStream(soundFile);
 				DataLine.Info info = new DataLine.Info(Clip.class, sound.getFormat());
 				
-				 Clip clip;
+				// Clip clip;
+				if (clip != null)
+				if (clip.isRunning())
+				clip.stop();
 					clip = (Clip) AudioSystem.getLine(info);
 				
 					clip.open(sound);
@@ -249,7 +254,8 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				}
 			}
 		}
-		
+		//updateButtonGroupDisplays();
+		playSoundDescription();
 		setFocusable(true);
 		requestFocus();
 		System.out.println("a button was clicked");
