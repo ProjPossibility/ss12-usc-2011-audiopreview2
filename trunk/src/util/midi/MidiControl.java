@@ -15,26 +15,50 @@ import javax.vecmath.Vector3d;
  * 
  * MidiControl.java
  * Purpose:Interface between the GUI and the engine classes to process/edit the midi file
+ * 
  * @author Ryan
  *
  */
 
 public class MidiControl {
 	
+	/** Array storing the instrument objects */
 	Instrument[] instruments = new Instrument[16];
+	
+	/** Array storing the instrument channel volumes to be modified */
 	int[] instrumentVolumes = new int[16];
+	
+	/** Intermediate array storing the scaled volume values */
 	double[] scaledVolumes = new double[16];
+	
+	/** Array storying the Point3d for each instrument */
 	Point3d[] instrumentPoints = new Point3d[16];
-	double volumeAverage, scaleAverage;
+	
+	/** Files that must be modified by the programmer to load the correct files */
 	File songFile, textFile;
+	
+	/** Sequence object that loads the midi files */
 	Sequence sequence;
+	
+	/** Sequencer object that plays the sequence through the default Sequencer */
 	Sequencer sequencer;
+	
+	/** Receiver object to send messages to the MIDI file */
 	Receiver receiver;
+	
+	/** Synthesizer object that produced sound with the default Synthesizer */
 	Synthesizer synthesizer;
+	
+	/** Transmitter object that works as a pair with the Receiever object to send messages to the MIDI file */
 	Transmitter transmitter;
+	
+	/** number of channels being used by the MIDI file */
 	int channels;
+	
+	/** SeatSection object representing the location in the audience to emulate noise to */
 	SeatSection seat;
 	
+	/** constant double value used for vector calculations */
 	private static final double ROOTTWO = Math.sqrt(2);
 	
 	/**
@@ -43,8 +67,6 @@ public class MidiControl {
 	public MidiControl()
 	{
 		//ripChannels(seat);
-		volumeAverage = 0;
-		scaleAverage = 0;
 	}
 	
 	/**public static void main(String[] args)
@@ -189,6 +211,8 @@ public class MidiControl {
 	 */
 	public void changeVolumes()
 	{
+		Double volumeAverage = 0.0;
+		Double scaleAverage = 0.0;
 		System.out.println(channels);
 		for(int i = 0; i < channels; i++)
 		{
@@ -199,8 +223,8 @@ public class MidiControl {
 		System.out.println("VAverage" + volumeAverage);
 		for(int i = 0; i < channels; i++)
 		{
-			SeatSection seatA = new SeatSection(new Point3d(-1,2,.5), "lol", songFile);
-			scaledVolumes[i] = instruments[i].getAdjustedVolume(seatA);
+			//SeatSection seatA = new SeatSection(new Point3d(-1,2,.5), "lol", songFile); use if applet is not passing a seat
+			scaledVolumes[i] = instruments[i].getAdjustedVolume(seat);
 			System.out.println("Scaled volume " + i + " " + scaledVolumes[i]);
 		}
 		for(int i = 0; i < channels; i++)
@@ -218,7 +242,7 @@ public class MidiControl {
 			instrumentVolumes[i] = (int)(scaledVolumes[i]*ratio);
 			System.out.println(instruments[i].getName()+" Instrument final volume " + i + " " + instrumentVolumes[i]);
 		}
-		volumeAverage = 0;
+		volumeAverage = 0.0;
 		for(int i = 0; i < channels; i++)
 		{
 			volumeAverage += instrumentVolumes[i];
@@ -226,9 +250,7 @@ public class MidiControl {
 		volumeAverage = volumeAverage / (channels+1);
 		System.out.println("VAverage final" + volumeAverage);
 		
-		//reset average values for use
-		volumeAverage = 0;
-		scaleAverage = 0;
+		
 		channels = 0;
 		
 	}
@@ -238,8 +260,7 @@ public class MidiControl {
 	 */
 	public void play()
 	{
-		ripChannels(seat);
-		/**try{
+		try{
 			sequence = MidiSystem.getSequence(songFile);
 	        sequencer = MidiSystem.getSequencer(false);
 	        receiver = MidiSystem.getReceiver();
@@ -252,18 +273,20 @@ public class MidiControl {
 	        
 	        synthesizer = MidiSystem.getSynthesizer();
 	        synthesizer.open();
-	        synthesizer.loadAllInstruments(MidiSystem.getSoundbank(new File("midi/soundbank-deluxe.gm")));
+	        synthesizer.loadAllInstruments(MidiSystem.getSoundbank(new File("../midi/soundbank-deluxe.gm")));
 	        sequencer.setSequence(sequence);
 		}
 		catch(Exception e)
 		{
 			System.out.println("Error in play");
-		}*/
-		try {
+		}
+		
+		/**try {
 			sequencer.setSequence(sequence);
 		} catch (InvalidMidiDataException e1) {
 			e1.printStackTrace();
-		}
+		}*/
+		
 		sequencer.start();
 		
 		ShortMessage volumeMessage = new ShortMessage();
@@ -275,7 +298,6 @@ public class MidiControl {
 			} catch (InvalidMidiDataException e) {
 				e.printStackTrace();
 			}
-            //System.out.println(MidiSystem.getSynthesizer().getChannels()[i].getController(7));
             try {
 				MidiSystem.getReceiver().send(volumeMessage, -1);
 			} catch (MidiUnavailableException e) {
