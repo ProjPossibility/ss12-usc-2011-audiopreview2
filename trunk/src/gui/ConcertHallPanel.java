@@ -7,9 +7,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -169,6 +179,50 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	{
 		//play description name
 		//seatsections[currentSelectedRow][currentSelectedCol]
+		 
+		    
+			try {
+				 File soundFile = seatsections[currentSelectedRow][currentSelectedCol].getSeatSection().getVoiceFile();
+				System.out.println("\n\n" + soundFile.toString());
+				 AudioInputStream sound;
+				 sound = AudioSystem.getAudioInputStream(soundFile);
+				DataLine.Info info = new DataLine.Info(Clip.class, sound.getFormat());
+				
+				 Clip clip;
+					clip = (Clip) AudioSystem.getLine(info);
+				
+					clip.open(sound);
+
+				    // due to bug in Java Sound, explicitly exit the VM when
+				    // the sound has stopped.
+				    clip.addLineListener(new LineListener() {
+				      public void update(LineEvent event) {
+				        if (event.getType() == LineEvent.Type.STOP) {
+				          event.getLine().close();
+				          //System.exit(0);
+				        }
+				      }
+				    });
+
+				    // play the sound clip
+				    clip.start();
+				    
+			} catch (UnsupportedAudioFileException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			} catch (LineUnavailableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		    
+		  
+
+			
+		    
 		
 	}
 	
