@@ -29,7 +29,6 @@ public class JButtonGroup extends JPanel implements ActionListener {
 		changePanelSize(numGroups);
 		group = new ArrayList<JButton>();
 		addButtons(numGroups);
-		
 	}
 	
 	public int getFloor(){
@@ -51,6 +50,7 @@ public class JButtonGroup extends JPanel implements ActionListener {
 	}
 	public void storeButton(JButton j){
 		group.add(j);
+		add(j);
 	}
 	
 	public void remove(int index){
