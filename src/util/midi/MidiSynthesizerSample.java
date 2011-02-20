@@ -7,6 +7,15 @@ import java.net.MalformedURLException;
 
 import javax.sound.midi.*;
 
+/**
+ * MidiSynthesizerSample.java
+ * Purpose: Sample code to be used for reference. Acts as a simple midi player that can change volumes of channels
+ * Use when testing changing new MIDI channel properties
+ * 
+ * @author Ryan
+ *
+ */
+
 public class MidiSynthesizerSample {
 
     
