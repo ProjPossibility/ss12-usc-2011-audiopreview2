@@ -117,9 +117,6 @@ public class MidiControl {
 	{
 		seat = s;
 		
-		/**
-		 * MODIFY these two files depending on the midi and text file currently in use
-		 */
 		try
 		{
 			songFile = new File("../midi/"+songName+".mid");
@@ -266,6 +263,8 @@ public class MidiControl {
 		Double volumeAverage = 0.0;
 		Double scaleAverage = 0.0;
 		System.out.println(channels);
+		
+		//Get the volume average
 		for(int i = 0; i < channels; i++)
 		{
 			volumeAverage += instrumentVolumes[i];
@@ -273,12 +272,16 @@ public class MidiControl {
 		}
 		volumeAverage = volumeAverage / (channels+1);
 		System.out.println("VAverage" + volumeAverage);
+		
+		//Get the adjusted volumes
 		for(int i = 0; i < channels; i++)
 		{
 			//SeatSection seatA = new SeatSection(new Point3d(-1,2,.5), "lol", songFile); //use if applet is not passing a seat
 			scaledVolumes[i] = instruments[i].getAdjustedVolume(seat);
 			System.out.println("Scaled volume " + i + " " + scaledVolumes[i]);
 		}
+		
+		//Get a scaled average
 		for(int i = 0; i < channels; i++)
 		{
 			scaleAverage += scaledVolumes[i];
@@ -286,14 +289,18 @@ public class MidiControl {
 		scaleAverage = scaleAverage / (channels+1);
 		System.out.println("SAverage " + scaleAverage);
 		
+		//Modify the volume average to get the ratio to modify the instruments
 		double ratio = volumeAverage / scaleAverage;
 		System.out.println("Ratio " + ratio);
 		
+		//Change the instrument volumes
 		for(int i = 0; i < channels; i++)
 		{
 			instrumentVolumes[i] = (int)(scaledVolumes[i]*ratio);
 			System.out.println(instruments[i].getName()+" Instrument final volume " + i + " " + instrumentVolumes[i]);
 		}
+		
+		//Get the new average to check if it is similar (no extra sound was added or removed)
 		volumeAverage = 0.0;
 		for(int i = 0; i < channels; i++)
 		{
@@ -302,7 +309,7 @@ public class MidiControl {
 		volumeAverage = volumeAverage / (channels+1);
 		System.out.println("VAverage final" + volumeAverage);
 		
-		
+		//Reset channels
 		channels = 0;
 		
 	}
@@ -332,12 +339,6 @@ public class MidiControl {
 		{
 			e.printStackTrace();
 		}
-		
-		/**try {
-			sequencer.setSequence(sequence);
-		} catch (InvalidMidiDataException e1) {
-			e1.printStackTrace();
-		}*/
 		
 		sequencer.start();
 		
