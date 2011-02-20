@@ -5,6 +5,11 @@ import javax.vecmath.Point3d;
 import engine.SeatSection;
 import engine.UndirectedInstrument;
 
+/**
+ * Test class for the UndirectedInstrument class
+ * 
+ * @author Jonathan
+ */
 public class UndirectedInstrumentTester {
 
 	public static void main(String [] args)
