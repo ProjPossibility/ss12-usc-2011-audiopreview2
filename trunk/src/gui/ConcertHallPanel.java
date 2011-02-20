@@ -3,6 +3,8 @@ package gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -173,7 +175,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 			for (int j = 0; j < NUM_COLS; j++)
 			{
 				if (seatsections[i][j] != null)
-				seatsections[i][j].setGSS_Color(State.SELECTED);
+				seatsections[i][j].setGSS_Color(State.NOT_SELECTED);
 			}
 		}
 		for (int i = 0; i < NUM_ROWS; i++)
@@ -182,11 +184,19 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 			{
 				if (seatsections[i][j] != null)
 				if (seatsections[i][j] == guiseat)
+				{
 					guiseat.setGSS_Color(State.SELECTED);
+					currentSelectedRow = i;
+					currentSelectedCol = j;
+				}
 			}
 		}
 		
+		setFocusable(true);
+		requestFocus();
+		System.out.println("a button was clicked");
 	}
+	
 	//List<JButtonGroup> sectionGroups;
 	//int lastLeftSectionGroup;
 	//int lastMidSectionGroup;

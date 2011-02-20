@@ -27,6 +27,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 		String name = lookUpNameAndLocation(row, col);
 		mySeatSection = new SeatSection(location, name, voiceFile);
 		GSS_state = State.NOT_SELECTED;
+		addActionListener(this);
 	}
 	
 	public void loadImages(){
@@ -148,6 +149,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		System.out.println("button clicked");
 		parent.buttonClicked(this);
 	}
 }
