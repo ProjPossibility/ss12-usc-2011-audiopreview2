@@ -11,6 +11,11 @@ import javax.swing.JButton;
 import javax.vecmath.Point3d;
 import engine.SeatSection;
 
+/**
+ * State enum to determine the current state of the classes
+ * @author Andy
+ *
+ */
 enum State {NOT_SELECTED,SELECTED};
 
 /**
