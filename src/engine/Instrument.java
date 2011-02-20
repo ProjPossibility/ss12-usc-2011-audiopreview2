@@ -9,10 +9,10 @@ import javax.vecmath.Point3d;
  */
 public abstract class Instrument
 {
-	private String iName;
-	private int channelNumber;
-	private int channelVolume;
-	private Point3d iLocation;
+	protected String iName;
+	protected int channelNumber;
+	protected int channelVolume;
+	protected Point3d iLocation;
 	
 	/**
 	 * Default constructor
