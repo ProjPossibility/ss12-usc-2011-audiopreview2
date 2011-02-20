@@ -16,6 +16,14 @@ public abstract class Instrument
 	private Point3d iLocation;
 	
 	/**
+	 * Default constructor
+	 */
+	public Instrument()
+	{
+		
+	}
+	
+	/**
 	 * Constructs a new Instrument
 	 */
 	public Instrument(String name, MidiChannel channel, int channelNum, Point3d location)
