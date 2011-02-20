@@ -3,8 +3,8 @@ package engine;
 
 import java.io.File;
 
-import javax.sound.sampled.*;
 import javax.vecmath.*;
+
 /**
  * 
  * The SeatSection class is a simple structure containing the location,
