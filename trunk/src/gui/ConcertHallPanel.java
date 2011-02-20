@@ -22,11 +22,14 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	 */
 	public int WINDOW_HEIGHT = 600;
 	Rectangle bgrect;
-	List<JButtonGroup> sectionGroups;
-	int lastLeftSectionGroup;
-	int lastMidSectionGroup;
-	int currentSectionSelected;
+	
+	int NUM_ROWS = 4;
+	int NUM_COLS = 5;
+	GUISeatSection[][] seatsections;
+	
 	int lastRightSectionGroup;
+	int currentSelectedRow = 1;
+	int currentSelectedCol = 2;
 	Boolean inSubSectionMode;
 	
 	public  ConcertHallPanel()
@@ -34,21 +37,157 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		bgrect = new Rectangle(0,0,WINDOW_WIDTH,WINDOW_WIDTH);
 		setLayout(null);
 		
-		JButton b = new JButton("");
-		b.setLocation(0, 0);
-		b.setSize(100, 100);
-		
-		b.setBackground(Color.white);
-		b.setOpaque(true);
-		b.setBorderPainted(false);
-		add(b);
-		
 		setUpSectionGroups();
 		addKeyListener(this);
 		inSubSectionMode = false;
 	}
 	
-	public void setUpSectionGroups()
+	private void setUpSectionGroups()
+	{
+		seatsections = new GUISeatSection[4][5];
+		for (int i = 0; i < NUM_ROWS; i++)
+			for (int j = 0; j < NUM_COLS; j++)
+			{
+				seatsections[i][j] = null;
+				if (i == 3)
+				{
+					if (j == 0 || j == 4)
+						continue;
+				}
+				if (i == 0)
+				{
+					if (j == 1 || j == 2 || j == 3)
+						continue;
+				}
+				seatsections[i][j] = new GUISeatSection(i,j);
+				seatsections[i][j].setLabel(i + " , " + j);
+				seatsections[i][j].setLocation(50 + 125 * j, 50 + 125 * i);
+				seatsections[i][j].setSize( 125 ,  125 );
+				add(seatsections[i][j]);
+			}
+		updateButtonGroupDisplays();
+	}
+
+	
+
+	
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent event) {
+		// TODO Auto-generated method stub
+		int keypressed = event.getKeyCode();
+		switch(keypressed)
+		{
+			case KeyEvent.VK_UP:
+				if (currentSelectedRow == 0)
+					return;
+				currentSelectedRow -= 1;
+				if (seatsections[currentSelectedRow][currentSelectedCol] == null)
+					currentSelectedRow += 1;
+				updateButtonGroupDisplays();
+				playSoundDescription();
+				break;
+			case KeyEvent.VK_DOWN:
+				if (currentSelectedRow == 3)
+					return;
+				currentSelectedRow += 1;
+				if (seatsections[currentSelectedRow][currentSelectedCol] == null)
+					currentSelectedRow -= 1;
+				updateButtonGroupDisplays();
+				playSoundDescription();
+				break;
+			case KeyEvent.VK_LEFT:
+				if (currentSelectedCol == 0)
+					return;
+				if (currentSelectedCol == 4 && currentSelectedRow == 0)
+					currentSelectedRow = 1;
+				currentSelectedCol--;
+				while (seatsections[currentSelectedRow][currentSelectedCol] == null)
+				{
+					currentSelectedRow--;
+				}
+				
+				updateButtonGroupDisplays();
+				playSoundDescription();
+				break;
+			case KeyEvent.VK_RIGHT:
+				if (currentSelectedCol == 4)
+					return;
+				if (currentSelectedCol == 3 && currentSelectedRow == 3)
+					currentSelectedRow = 2;
+				currentSelectedCol++;
+				while (seatsections[currentSelectedRow][currentSelectedCol] == null)
+				{
+					currentSelectedRow++;
+				}
+				
+				updateButtonGroupDisplays();
+				playSoundDescription();
+				break;
+			case KeyEvent.VK_SPACE:
+				//seatsections[currentSelectedRow][currentSelectedCol]
+				//play soundbyte
+				break;
+		}
+	}
+	
+	private void updateButtonGroupDisplays()
+	{
+		for (int i = 0; i < NUM_ROWS; i++)
+			for (int j = 0; j < NUM_COLS; j++)
+			{
+				if (seatsections[i][j] != null)
+				seatsections[i][j].setGSS_Color(State.NOT_SELECTED);
+			}
+		seatsections[currentSelectedRow][currentSelectedCol].setGSS_Color(State.SELECTED);
+		
+	}
+	
+	private void playSoundDescription()
+	{
+		//play description name
+		//seatsections[currentSelectedRow][currentSelectedCol]
+	}
+	
+	public void buttonClicked(GUISeatSection guiseat)
+	{
+		for (int i = 0; i < NUM_ROWS; i++)
+		{
+			for (int j = 0; j < NUM_COLS; j++)
+			{
+				if (seatsections[i][j] != null)
+				seatsections[i][j].setGSS_Color(State.SELECTED);
+			}
+		}
+		for (int i = 0; i < NUM_ROWS; i++)
+		{
+			for (int j = 0; j < NUM_COLS; j++)
+			{
+				if (seatsections[i][j] != null)
+				if (seatsections[i][j] == guiseat)
+					guiseat.setGSS_Color(State.SELECTED);
+			}
+		}
+		
+	}
+	//List<JButtonGroup> sectionGroups;
+	//int lastLeftSectionGroup;
+	//int lastMidSectionGroup;
+	//int currentSectionSelected;
+	
+	/*public void setUpSectionGroups()
 	{
 		sectionGroups = new ArrayList<JButtonGroup>();
 		sectionGroups.add( new JButtonGroup(this, 2, State.NOT_HOVERING, 2));
@@ -73,7 +212,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 			{
 				int height = 50;
 				if (i == lastLeftSectionGroup)
-					height = 275;
+					height = 325;
 				sectionGroups.get(i).setLocation(100, height);
 				
 			}
@@ -90,7 +229,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 			{
 				int height = 50;
 				if (i == lastRightSectionGroup)
-					height = 275;
+					height = 325;
 				if (i == sectionGroups.size() - 1)
 					sectionGroups.get(i).setLocation(600, height);
 				else
@@ -100,13 +239,9 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		}
 		
 		
-	}
-	/*public void actionPerformed( ActionEvent ae ) {  //called every time the timer fires, updates and redraws the game
-		    
-		repaint();
 	}*/
-
-	@Override
+	
+	/*@Override
 	public void keyPressed(KeyEvent event) {
 		// TODO Auto-generated method stub
 		System.out.println("key input detected");
@@ -150,7 +285,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				updateButtonGroupDisplays();
 				break;
 			case KeyEvent.VK_LEFT:
-				if (currentSectionSelected > lastMidSectionGroup)   // if in the right side
+				if (currentSectionSelected > sSectionGroup)   // if in the right side
 				{
 					currentSectionSelected = lastMidSectionGroup;  //go to the middle
 				}
@@ -184,27 +319,14 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				break;
 		}
 		
-	}
-
-	private void updateButtonGroupDisplays()
+	}*/
+	
+	/*private void updateButtonGroupDisplays()
 	{
 		for (int i = 0; i < sectionGroups.size(); i++)
 		{
 			sectionGroups.get(i).setGroupsIcon(State.NOT_HOVERING);
 		}
 		sectionGroups.get(currentSectionSelected).setGroupsIcon(State.HOVERING);
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+	}*/
 }

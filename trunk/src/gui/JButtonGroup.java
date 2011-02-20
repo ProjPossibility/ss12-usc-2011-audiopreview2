@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-enum State {HOVERING,NOT_HOVERING,GREYED_OUT,SELECTED};
+enum deadState {HOVERING,NOT_HOVERING,GREYED_OUT,SELECTED};
 
 public class JButtonGroup extends JPanel implements ActionListener {
 	
@@ -24,7 +24,7 @@ public class JButtonGroup extends JPanel implements ActionListener {
 	private int groupFloor;
 	private int numOfButtons;
 	
-	public JButtonGroup(ConcertHallPanel p, int numGroups, State state, int floor){
+	public JButtonGroup(ConcertHallPanel p, int numGroups, deadState state, int floor){
 		parent = p;
 		groupFloor = floor;
 		numOfButtons = numGroups;
@@ -89,7 +89,7 @@ public class JButtonGroup extends JPanel implements ActionListener {
 		
 	}
 	
-	public void setGroupsIcon(State state){
+	public void setGroupsIcon(deadState state){
 		switch(state){
 		case HOVERING:
 			colorButtons(Color.BLUE);
@@ -111,7 +111,7 @@ public class JButtonGroup extends JPanel implements ActionListener {
 		}
 	}
 	
-	public void setGroupsIcon(State state, int index){
+	public void setGroupsIcon(deadState state, int index){
 		if(index != -1){
 			//When you're selecting one particular subsection
 			if(state == state.SELECTED){
