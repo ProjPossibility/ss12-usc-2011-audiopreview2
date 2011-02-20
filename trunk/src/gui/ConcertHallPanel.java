@@ -29,7 +29,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import util.midi.MidiControl;
-
+/**
+ * The main panel that has all the buttons.  It manages arrow key movement and mouse clicks.
+ * Manages what sound to play and when.  Passes the button currently selected to the midi when the 
+ * spacebar is pressed.
+ * @author Zach
+ *
+ */
 public class ConcertHallPanel extends JPanel implements KeyListener
 {
 	/**
