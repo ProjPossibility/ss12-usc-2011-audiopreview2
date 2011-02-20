@@ -58,4 +58,9 @@ public abstract class Instrument
 	{
 		return iLocation;
 	}
+	
+	public String toString()
+	{
+		return "instrument " + iName + iLocation.x + "," + iLocation.y + "," + iLocation.z;
+	}
 }
