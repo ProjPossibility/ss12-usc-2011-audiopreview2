@@ -10,7 +10,7 @@ import javax.sound.midi.*;
 public class MidiSynthesizerSample {
 
     
-    /**public static void main(String[] args) {
+    public static void main(String[] args) {
         // get all the default stuff
         try {
             Sequence sequence = MidiSystem.getSequence(new File("midi/verdi_requiem.mid"));
@@ -29,7 +29,7 @@ public class MidiSynthesizerSample {
             sequencer.setSequence(sequence);
             sequencer.start();
             //setReverb(7);
-            setVolume(0);
+            setVolume(60);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e1) {
@@ -62,7 +62,7 @@ public class MidiSynthesizerSample {
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
         }
-    }*/
+    }
     
     public static void setReverb(int value)
     {
