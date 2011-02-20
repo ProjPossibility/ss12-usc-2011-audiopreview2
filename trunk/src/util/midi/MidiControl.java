@@ -86,7 +86,7 @@ public class MidiControl {
 			{
 				System.out.println("File found");
 			}
-			sequence = MidiSystem.getSequence(f);
+			sequence = MidiSystem.getSequence(songFile);
             sequencer = MidiSystem.getSequencer(false);
             receiver = MidiSystem.getReceiver();
             // open the sequencer and wire up the receiver
