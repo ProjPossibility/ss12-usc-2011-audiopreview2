@@ -28,6 +28,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 	/**	Own Point3d location used for holding the 3 component vector values*/
 	Point3d location;
 	
+	/** String sectionName to be used to load the .wav file and the .png image for the icon */
 	String sectionName;
 	
 	/** File voiceFile to be loaded and passed to the SeatSection */
@@ -50,7 +51,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 	
 	/**
 	 * Overloaded Constructor for the GUISeatSection class 
-	 * @param Parent panel used so we can report to button clicks.
+	 * @param p panel used so we can report to button clicks.
 	 * @param row int used for mapping the location to the actual GUI.
 	 * @param col int used for mapping the location to the actual GUI.
 	 */
@@ -75,7 +76,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 	/**
 	 * Loads the two images using the grabImage method to get the images
 	 * 
-	 * @param none
+	 * @param 
 	 */
 	public void loadImages(){
 		selectedSeat = grabImage("..\\images\\ConcertHall\\"+sectionName.concat(".PNG"));
@@ -85,7 +86,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 	/**
 	 * Gets the Image from the local directory and returns the image
 	 * 
-	 * @param String filename in directory.
+	 * @param filename in directory.
 	 */
 	public Image grabImage(String filename){
 		File sourceimage = new File(filename);
@@ -95,7 +96,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 	}
 	
 	/**
-	 * 
+	 * Gets the current enum State of the button
 	 * @return the current 
 	 */
 	public State getState(){
@@ -111,7 +112,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 	}
 	
 	/**
-	 * 
+	 * Gets the SeatSection object of this GUISeatSection
 	 * @return the SeatSection object to the caller
 	 */
 	public SeatSection getSeatSection(){
@@ -135,7 +136,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 			//this.setBorderPainted(false);
 			//this.setOpaque(true);
 			break;
-		/** This will set the ImageIcon to it's corresponding ConcertHall Image*/
+		/** This will set the ImageIcon to it's corresponding ConcertHall Image */
 		case SELECTED:
 			this.setBackground(Color.RED);
 			seatIcon.setImage(selectedSeat);
@@ -242,7 +243,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 	}
 
 	/**
-	 * Will notify 
+	 * Will notify the parent panel that this was the button that was clicked.
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		System.out.println("button clicked");
