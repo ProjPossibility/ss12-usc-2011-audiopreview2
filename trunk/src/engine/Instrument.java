@@ -11,6 +11,7 @@ public abstract class Instrument
 {
 	private String iName;
 	private int channelNumber;
+	private int channelVolume;
 	private Point3d iLocation;
 	
 	/**
@@ -24,14 +25,19 @@ public abstract class Instrument
 	/**
 	 * Constructs a new Instrument
 	 */
-	public Instrument(String name, int channelNum, Point3d location)
+	public Instrument(String name, int channelNum, int channelVol, Point3d location)
 	{
 		iName = name;
 		channelNumber = channelNum;
+		channelVolume = channelVol;
 		iLocation = location;
 	}
 	
-	public abstract double getVolume();
+	/**
+	 * @return the adjusted volume for a seat section
+	 */
+	public abstract double getAdjustedVolume(SeatSection s);
+	
 	
 	public String getName()
 	{
@@ -41,6 +47,11 @@ public abstract class Instrument
 	public int getChannelNumber()
 	{
 		return channelNumber;
+	}
+	
+	public int getChannelVolume()
+	{
+		return channelVolume;
 	}
 	
 	public Point3d getLocation()

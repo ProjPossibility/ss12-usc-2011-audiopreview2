@@ -6,8 +6,9 @@ public class DirectedInstrument extends Instrument
 	{
 		
 	}
-	
-	public double getVolume()
+
+	@Override
+	public double getAdjustedVolume(SeatSection s)
 	{
 		// TODO Auto-generated method stub
 		return 0;
