@@ -22,10 +22,12 @@ public class JButtonGroup extends JPanel implements ActionListener {
 	final int BUTTON_HEIGHT = 100;
 	ArrayList<JButton> group;
 	private int groupFloor;
+	private int numOfButtons;
 	
 	public JButtonGroup(ConcertHallPanel p, int numGroups, State state, int floor){
 		parent = p;
 		groupFloor = floor;
+		numOfButtons = numGroups;
 		
 		changePanelSize(numGroups);
 		group = new ArrayList<JButton>();
@@ -65,11 +67,20 @@ public class JButtonGroup extends JPanel implements ActionListener {
 	
 	public void addButtons(int num){
 		for(int k = 0; k <num;k++){
+			
 			JButton temp = new JButton(" ");
-			temp.setSize(BUTTON_WIDTH,BUTTON_HEIGHT);
-			temp.setMinimumSize(new Dimension(BUTTON_WIDTH,BUTTON_HEIGHT));
-			temp.setMaximumSize(new Dimension(BUTTON_WIDTH,BUTTON_HEIGHT));
-			temp.setPreferredSize(new Dimension(BUTTON_WIDTH,BUTTON_HEIGHT));
+			if(numOfButtons == 1){
+				temp.setSize(BUTTON_WIDTH,BUTTON_HEIGHT*2);
+				temp.setMinimumSize(new Dimension(BUTTON_WIDTH,BUTTON_HEIGHT*2));
+				temp.setMaximumSize(new Dimension(BUTTON_WIDTH,BUTTON_HEIGHT*2));
+				temp.setPreferredSize(new Dimension(BUTTON_WIDTH,BUTTON_HEIGHT*2));
+			}
+			else{
+				temp.setSize(BUTTON_WIDTH,BUTTON_HEIGHT);
+				temp.setMinimumSize(new Dimension(BUTTON_WIDTH,BUTTON_HEIGHT));
+				temp.setMaximumSize(new Dimension(BUTTON_WIDTH,BUTTON_HEIGHT));
+				temp.setPreferredSize(new Dimension(BUTTON_WIDTH,BUTTON_HEIGHT));
+			}
 			storeButton(temp);
 		}
 	}
