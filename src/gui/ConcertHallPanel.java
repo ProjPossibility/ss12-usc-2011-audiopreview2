@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 
 public class ConcertHallPanel extends JPanel implements KeyListener
 {
-	
 	/**
 	 * Width of the JPanel
 	 */
