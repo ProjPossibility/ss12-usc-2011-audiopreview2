@@ -45,6 +45,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		
 		setUpSectionGroups();
 		addKeyListener(this);
+		inSubSectionMode = false;
 	}
 	
 	public void setUpSectionGroups()
@@ -95,7 +96,6 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				else
 					sectionGroups.get(i).setLocation(600, height);
 			}
-			sectionGroups.get(i).setSize(sectionGroups.get(i).getWidth(), sectionGroups.get(i).getHeight());
 			add(sectionGroups.get(i));
 		}
 		
@@ -168,6 +168,17 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				else if (currentSectionSelected <= lastMidSectionGroup)  //else if in the middle
 				{
 					currentSectionSelected = lastRightSectionGroup; //go to the right
+				}
+				updateButtonGroupDisplays();
+				break;
+			case KeyEvent.VK_SPACE:
+				if (inSubSectionMode)  
+				{
+					
+				}
+				else 
+				{
+					
 				}
 				updateButtonGroupDisplays();
 				break;
