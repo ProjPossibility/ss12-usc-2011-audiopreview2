@@ -34,17 +34,17 @@ public class MidiControl {
 	 */
 	public MidiControl()
 	{
-		//ripChannels(seat);
+		ripChannels(seat);
 		volumeAverage = 0;
 		scaleAverage = 0;
 	}
 	
-	/**public static void main(String[] args)
+	public static void main(String[] args)
 	{
 		MidiControl m = new MidiControl();
 		m.play();
 		
-	}*/
+	}
 	
 	
 	/**
@@ -69,10 +69,16 @@ public class MidiControl {
 			
 		}
 		
+		System.out.println(songFile.getAbsolutePath());
 		
 		try
 		{
-			sequence = MidiSystem.getSequence(songFile);
+			File f = new File("midi/verdi_requiem.mid");
+			if(f.exists())
+			{
+				System.out.println("File found");
+			}
+			sequence = MidiSystem.getSequence(f);
             sequencer = MidiSystem.getSequencer(false);
             receiver = MidiSystem.getReceiver();
             // open the sequencer and wire up the receiver
@@ -93,7 +99,7 @@ public class MidiControl {
 		}
 		catch(Exception e)
 		{
-			System.out.println(e);
+			e.printStackTrace();
 		}            
             
         	try
@@ -230,7 +236,27 @@ public class MidiControl {
 	 */
 	public void play()
 	{
-		
+		ripChannels(seat);
+		/**try{
+			sequence = MidiSystem.getSequence(songFile);
+	        sequencer = MidiSystem.getSequencer(false);
+	        receiver = MidiSystem.getReceiver();
+	        // open the sequencer and wire up the receiver
+	        // and transmitter
+	
+	        sequencer.open();
+	        transmitter = sequencer.getTransmitter();
+	        transmitter.setReceiver(receiver);
+	        
+	        synthesizer = MidiSystem.getSynthesizer();
+	        synthesizer.open();
+	        synthesizer.loadAllInstruments(MidiSystem.getSoundbank(new File("midi/soundbank-deluxe.gm")));
+	        sequencer.setSequence(sequence);
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error in play");
+		}*/
 		sequencer.start();
 		
 		ShortMessage volumeMessage = new ShortMessage();
