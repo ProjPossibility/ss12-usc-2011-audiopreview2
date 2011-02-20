@@ -18,6 +18,7 @@ public class GUISeatSection extends JButton{
 		String name = lookUpNameAndLocation(row, col);
 		mySeatSection = new SeatSection(location, name, voiceFile);
 		GSS_state = State.NOT_SELECTED;
+		
 	}
 	
 	public State getState(){
@@ -47,6 +48,7 @@ public class GUISeatSection extends JButton{
 	
 	public String lookUpNameAndLocation(int row, int col){
 		String name = " ";
+		location = new Point3d();
 		switch(row){
 		case 0:
 			switch(col){
