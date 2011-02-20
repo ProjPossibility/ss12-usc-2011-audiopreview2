@@ -325,6 +325,8 @@ public class MidiControl {
 	 */
 	public void play()
 	{
+		
+		/** BEGIN WORKING CODE */
 		try{
 			synthesizer = MidiSystem.getSynthesizer();
 	        synthesizer.open();
@@ -350,10 +352,7 @@ public class MidiControl {
 		
 		sequencer.start();
 		
-		
-		
-		
-		
+		/** END WORKING CODE */
 		
 		
 		
@@ -362,6 +361,11 @@ public class MidiControl {
 		
 		
 		/**
+		 * the following comment block is experimental code for changing the volume
+		 */
+		
+		/**
+		
 		try{
 	        synthesizer = MidiSystem.getSynthesizer();
 	        synthesizer.open();
@@ -378,87 +382,64 @@ public class MidiControl {
 	        javax.sound.midi.MidiChannel[] channels = synthesizer.getChannels();
 	        ShortMessage volumeMessage = new ShortMessage();
 	        
-	        /**try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }*/
-	        
-	        /**for(int i = 0; i < 16; i++)
+	        for(int i = 0; i < 16; i++)
 	        {
 	        	if(instrumentVolumes[i] > 127)
 	        	{
 	        		instrumentVolumes[i] = 127;
 	        	}
-	            volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, instrumentVolumes[i]);
-	            MidiSystem.getReceiver().send(volumeMessage, -1);
+	            //volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, instrumentVolumes[i]);
+	            //MidiSystem.getReceiver().send(volumeMessage, -1);
 	            System.out.println("sent volume "+instrumentVolumes[i]);
-	        	//channels[i].controlChange(7, instrumentVolumes[i]);
-	        }
-	        //for(int i = 0; i < channels.length; i++)
-	        //{
-	            //System.out.println(synthesizer.getChannels());
-	        //}
-	        /**for(int i = 0; i < channels.length; i++)
-	        {
-	            if(i < 9 || i > 10)
-	                channels[i].allSoundOff();
+	        	channels[i].controlChange(7, instrumentVolumes[i]);
 	        }
 	    }
 	    catch(Exception e)
 	    {
 	    	e.printStackTrace();
-	    }*/   
+	    }  
+	    */
+	    /** END EXPERIMENT */
 	    
 	    
 	    
 	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
+	    /** BEGIN WORKING CODE */
 		
-		/**if (this.synthesizer != null) {
-			System.out.println("HOORAY");
-			// if its not null, then we know we can use the synthesizer to 
-			// change the volume
-			MidiChannel[] channels = this.synthesizer.getChannels();
-			// set the master volume for each channel
-			for (int i = 0; i < channels.length; i++) {
-				// change the percent value to a respective gain value
-				channels[i].controlChange(7, instrumentVolumes[i]);
-			}
-		}*/
-	    
-	    
-
+//		if (this.synthesizer != null && 0==1) {
+//			System.out.println("HOORAY");
+//			// if its not null, then we know we can use the synthesizer to 
+//			// change the volume
+//			MidiChannel[] channels = this.synthesizer.getChannels();
+//			// set the master volume for each channel
+//			for (int i = 0; i < channels.length; i++) {
+//				// change the percent value to a respective gain value
+//				channels[i].controlChange(7, instrumentVolumes[i]);
+//				System.out.println(instruments[i] + "set volume " + instrumentVolumes[i]);
+//			}
+//		}
+//		else
+//		{
+			ShortMessage volumeMessage = new ShortMessage();
+			
+			for(int i = 0; i < 16; i++)
+	        {
+	            try {
+	            	if(instrumentVolumes[i] > 127)
+	            	{
+	            		instrumentVolumes[i] = 127;
+	            		System.out.println("lowering volume");
+	            	}
+					volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, instrumentVolumes[i]);       
+					this.receiver.send(volumeMessage, -1);
+					System.out.println(instruments[i] + " set volume " + instrumentVolumes[i]);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+	        }
+//		}
 		
-		ShortMessage volumeMessage = new ShortMessage();
-		
-		for(int i = 0; i < 16; i++)
-        {
-            try {
-            	if(instrumentVolumes[i] > 127)
-            	{
-            		instrumentVolumes[i] = 127;
-            		System.out.println("lowering volume");
-            	}
-				volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, instrumentVolumes[i]);       
-				receiver.send(volumeMessage, -1);
-				System.out.println("test " + instrumentVolumes[i]);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-        }
+		/** END WORKING CODE */
         
 	}
 	
