@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -38,7 +39,11 @@ public class JButtonGroup extends JPanel implements ActionListener {
 	public void changePanelSize(int numGroups){
 		if(numGroups == 1){
 			this.setSize(BUTTON_WIDTH,3*BUTTON_HEIGHT);
+			this.setPreferredSize(new Dimension(BUTTON_WIDTH,3*BUTTON_HEIGHT));
+			this.setMinimumSize(new Dimension(BUTTON_WIDTH,3*BUTTON_HEIGHT));
+			this.setMaximumSize(new Dimension(BUTTON_WIDTH,3*BUTTON_HEIGHT));
 			this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+			System.out.println("three buttongroup created");
 		}
 		else if(numGroups == 2){
 			this.setSize(BUTTON_WIDTH,BUTTON_HEIGHT*2);
@@ -62,6 +67,9 @@ public class JButtonGroup extends JPanel implements ActionListener {
 		for(int k = 0; k <num;k++){
 			JButton temp = new JButton(" ");
 			temp.setSize(BUTTON_WIDTH,BUTTON_HEIGHT);
+			temp.setMinimumSize(new Dimension(BUTTON_WIDTH,BUTTON_HEIGHT));
+			temp.setMaximumSize(new Dimension(BUTTON_WIDTH,BUTTON_HEIGHT));
+			temp.setPreferredSize(new Dimension(BUTTON_WIDTH,BUTTON_HEIGHT));
 			storeButton(temp);
 		}
 	}
