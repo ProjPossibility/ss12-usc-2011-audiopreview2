@@ -9,9 +9,9 @@
 
 = Team Members =
 
-* Ryan Tenorio
-* Kyle Mylonakis
-* Andy Ybarra
-* Zach Boehm
-* Brehon Humphrey
-* Jonathan Sun
+  * Ryan Tenorio
+  * Kyle Mylonakis
+  * Andy Ybarra
+  * Zach Boehm
+  * Brehon Humphrey
+  * Jonathan Sun
