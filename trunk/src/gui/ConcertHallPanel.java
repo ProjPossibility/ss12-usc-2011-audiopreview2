@@ -110,7 +110,6 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		ImageIcon tempIcon = new ImageIcon(orchestra);
 		orchestraImage.setIcon(tempIcon);
 		//orchestraImage.setSize(orchestra.getHeight(new ImageObserver(), orchestra.getHeight(new ImageOvserver()));
-		System.out.println("ConcertImageWidth: " + tempIcon.getIconWidth());
 		orchestraImage.setSize(tempIcon.getIconWidth(), tempIcon.getIconHeight());
 		PlaceConcertImage();
 		
@@ -233,12 +232,14 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				midicontrol2.stop();
 				midicontrol1.stop();
 				midicontrol1.play();
+				System.out.println("Playing the first song");
 				break;
 			case KeyEvent.VK_2:
 				stopSoundClip();
 				midicontrol1.stop();
 				midicontrol2.stop();
 				midicontrol2.play();
+				System.out.println("Playing the second song");
 				break;
 		}
 	}
@@ -296,7 +297,6 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 			default:
 				return;
 			}
-			System.out.println("\n\n" + soundFile.toString());
 			 AudioInputStream sound;
 			 sound = AudioSystem.getAudioInputStream(soundFile);
 			DataLine.Info info = new DataLine.Info(Clip.class, sound.getFormat());
@@ -365,7 +365,6 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		playSoundDescription();
 		setFocusable(true);
 		requestFocus();
-		System.out.println("a button was clicked");
 	}
 	
 	class ALineListener implements LineListener
