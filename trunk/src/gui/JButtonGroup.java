@@ -59,7 +59,7 @@ public class JButtonGroup extends JPanel implements ActionListener {
 	
 	public void addButtons(int num){
 		for(int k = 0; k <num;k++){
-			JButton temp = new JButton();
+			JButton temp = new JButton(" ");
 			temp.setSize(BUTTON_WIDTH,BUTTON_HEIGHT);
 			storeButton(temp);
 			//make separate calls to set the imageicon
