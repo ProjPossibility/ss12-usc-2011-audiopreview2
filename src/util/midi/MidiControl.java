@@ -325,7 +325,7 @@ public class MidiControl {
 	 */
 	public void play()
 	{
-		/**try{
+		try{
 			synthesizer = MidiSystem.getSynthesizer();
 	        synthesizer.open();
 			sequence = MidiSystem.getSequence(songFile);
@@ -346,11 +346,22 @@ public class MidiControl {
 		catch(Exception e)
 		{
 			e.printStackTrace();
-		}*/
+		}
 		
-		//sequencer.start();
+		sequencer.start();
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/**
 		try{
 	        synthesizer = MidiSystem.getSynthesizer();
 	        synthesizer.open();
@@ -361,6 +372,7 @@ public class MidiControl {
 	        sequencer.setSequence(sequence);
 	        
 	        sequencer.start();
+	        System.out.println("sequence started");
 	        transmitter = sequencer.getTransmitter();
 	        transmitter.setReceiver( receiver );
 	        javax.sound.midi.MidiChannel[] channels = synthesizer.getChannels();
@@ -373,7 +385,7 @@ public class MidiControl {
                 e1.printStackTrace();
             }*/
 	        
-	        for(int i = 0; i < channels.length; i++)
+	        /**for(int i = 0; i < 16; i++)
 	        {
 	        	if(instrumentVolumes[i] > 127)
 	        	{
@@ -381,6 +393,7 @@ public class MidiControl {
 	        	}
 	            volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, instrumentVolumes[i]);
 	            MidiSystem.getReceiver().send(volumeMessage, -1);
+	            System.out.println("sent volume "+instrumentVolumes[i]);
 	        	//channels[i].controlChange(7, instrumentVolumes[i]);
 	        }
 	        //for(int i = 0; i < channels.length; i++)
@@ -391,9 +404,28 @@ public class MidiControl {
 	        {
 	            if(i < 9 || i > 10)
 	                channels[i].allSoundOff();
-	        }*/
+	        }
 	    }
-	    catch(Exception e){e.printStackTrace();}
+	    catch(Exception e)
+	    {
+	    	e.printStackTrace();
+	    }*/   
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 		
 		/**if (this.synthesizer != null) {
 			System.out.println("HOORAY");
@@ -410,7 +442,7 @@ public class MidiControl {
 	    
 
 		
-		/**ShortMessage volumeMessage = new ShortMessage();
+		ShortMessage volumeMessage = new ShortMessage();
 		
 		for(int i = 0; i < 16; i++)
         {
@@ -420,13 +452,13 @@ public class MidiControl {
             		instrumentVolumes[i] = 127;
             		System.out.println("lowering volume");
             	}
-				volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, 0);//instrumentVolumes[i]);       
+				volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, instrumentVolumes[i]);       
 				receiver.send(volumeMessage, -1);
 				System.out.println("test " + instrumentVolumes[i]);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-        }*/
+        }
         
 	}
 	
