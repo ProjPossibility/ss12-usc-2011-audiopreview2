@@ -82,6 +82,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	 * the sound clip that tells what seat you have selected
 	 */
 	Clip clip;
+	ALineListener thelinelistener;
 	/**
 	 * the stage of the clip
 	 * 0 = not playing
@@ -319,16 +320,8 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				
 			    // due to bug in Java Sound, explicitly exit the VM when
 			    // the sound has stopped.
-			    clip.addLineListener(new LineListener() {
-			      public void update(LineEvent event) {
-			        if (event.getType() == LineEvent.Type.STOP) 
-			        {
-			        	playSoundClip();
-			        	event.getLine().close();
-			          //System.exit(0);
-			        }
-			      }
-			    });
+				thelinelistener = new ALineListener();
+			    clip.addLineListener(thelinelistener);
 	
 			    // play the sound clip
 			    clip.start();
@@ -350,8 +343,10 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		if (clip != null)
 			if (clip.isRunning())
 			{
+				clip.removeLineListener(thelinelistener);
 				clip.stop();
 				clip.close();
+				
 			}
 		clipStage = 0;
 	}
@@ -383,7 +378,18 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		System.out.println("a button was clicked");
 	}
 	
-	
+	class ALineListener implements LineListener
+	{
+	      public void update(LineEvent event) 
+	      {
+	        if (event.getType() == LineEvent.Type.STOP) 
+	        {
+	        	playSoundClip();
+	        	event.getLine().close();
+	          //System.exit(0);
+	        }
+	      }
+	}
 	//List<JButtonGroup> sectionGroups;
 	//int lastLeftSectionGroup;
 	//int lastMidSectionGroup;
