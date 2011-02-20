@@ -28,7 +28,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import engine.SeatSection;
+
 import util.midi.MidiControl;
+
 /**
  * The main panel that has all the buttons.  It manages arrow key movement and mouse clicks.
  * Manages what sound to play and when.  Passes the button currently selected to the midi when the 
@@ -49,7 +52,8 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	/**
 	 * controller for how the song is changed
 	 */
-	MidiControl midicontrol = new MidiControl();
+	MidiControl midicontrol1 = new MidiControl(1);
+	MidiControl midicontrol2 = new MidiControl(2);
 	
 	/**
 	 * the number of rows
@@ -78,6 +82,14 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	 * the sound clip that tells what seat you have selected
 	 */
 	Clip clip;
+	/**
+	 * the stage of the clip
+	 * 0 = not playing
+	 * 1 = section location
+	 * 2= "press 1 for preview 1"
+	 * 3 = "press 2 for preview 2"
+	 */
+	int clipStage = 0;
 	/**
 	 * the image of the band playing at the top
 	 */
@@ -174,7 +186,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	public void keyPressed(KeyEvent event) {
 		// TODO Auto-generated method stub
 		int keypressed = event.getKeyCode();
-		//midicontrol.stop();
+		//midicontrol1.stop();
 		switch(keypressed)
 		{
 			case KeyEvent.VK_UP:
@@ -223,11 +235,17 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				updateButtonGroupDisplays();
 				playSoundDescription();
 				break;
-			case KeyEvent.VK_SPACE:
+			case KeyEvent.VK_1:
 				//seatsections[currentSelectedRow][currentSelectedCol]
 				//play soundbyte
-				midicontrol.stop();
-				midicontrol.play();
+				midicontrol2.stop();
+				midicontrol1.stop();
+				midicontrol1.play();
+				break;
+			case KeyEvent.VK_2:
+				midicontrol1.stop();
+				midicontrol2.stop();
+				midicontrol2.play();
 				break;
 		}
 	}
@@ -245,8 +263,12 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				seatsections[i][j].setGSS_Color(State.NOT_SELECTED);
 			}
 		seatsections[currentSelectedRow][currentSelectedCol].setGSS_Color(State.SELECTED);
-		midicontrol.stop();
-		midicontrol.ripChannels(seatsections[currentSelectedRow][currentSelectedCol].getSeatSection());
+		
+		SeatSection seat = seatsections[currentSelectedRow][currentSelectedCol].getSeatSection();
+		midicontrol1.stop();
+		midicontrol1.ripChannels(seat);
+		midicontrol2.stop();
+		midicontrol2.ripChannels(seat);
 	}
 	
 	/**
@@ -256,54 +278,76 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	{
 		//play description name
 		//seatsections[currentSelectedRow][currentSelectedCol]
-		 
-		    
-			try {
-				 File soundFile = seatsections[currentSelectedRow][currentSelectedCol].getSeatSection().getVoiceFile();
-				System.out.println("\n\n" + soundFile.toString());
-				 AudioInputStream sound;
-				 sound = AudioSystem.getAudioInputStream(soundFile);
-				DataLine.Info info = new DataLine.Info(Clip.class, sound.getFormat());
-				
-				// Clip clip;
-				if (clip != null)
-				if (clip.isRunning())
-				clip.stop();
-					clip = (Clip) AudioSystem.getLine(info);
-				
-					clip.open(sound);
-
-				    // due to bug in Java Sound, explicitly exit the VM when
-				    // the sound has stopped.
-				    clip.addLineListener(new LineListener() {
-				      public void update(LineEvent event) {
-				        if (event.getType() == LineEvent.Type.STOP) {
-				          event.getLine().close();
-				          //System.exit(0);
-				        }
-				      }
-				    });
-
-				    // play the sound clip
-				    clip.start();
-				    
-			} catch (UnsupportedAudioFileException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			} catch (IOException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			} catch (LineUnavailableException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		stopSoundClip();
+		playSoundClip();
+	}
+	
+	private void playSoundClip()
+	{
+		try 
+		{
+			clipStage++;
+			File soundFile;
+			switch(clipStage)
+			{
+			case 1:
+				soundFile = seatsections[currentSelectedRow][currentSelectedCol].getSeatSection().getVoiceFile();
+				break;
+			case 2:
+				soundFile = seatsections[currentSelectedRow][currentSelectedCol].getSeatSection().getVoiceFile();
+				break;
+			case 3:
+				soundFile = seatsections[currentSelectedRow][currentSelectedCol].getSeatSection().getVoiceFile();
+				break;
+			default:
+				return;
 			}
-
-		    
-		  
-
+			System.out.println("\n\n" + soundFile.toString());
+			 AudioInputStream sound;
+			 sound = AudioSystem.getAudioInputStream(soundFile);
+			DataLine.Info info = new DataLine.Info(Clip.class, sound.getFormat());
 			
-		    
-		
+			// Clip clip;
+			
+				clip = (Clip) AudioSystem.getLine(info);
+				clip.close();
+				clip.open(sound);
+				
+				
+			    // due to bug in Java Sound, explicitly exit the VM when
+			    // the sound has stopped.
+			    clip.addLineListener(new LineListener() {
+			      public void update(LineEvent event) {
+			        if (event.getType() == LineEvent.Type.STOP) 
+			        {
+			        	playSoundDescription();
+			        	event.getLine().close();
+			          //System.exit(0);
+			        }
+			      }
+			    });
+	
+			    // play the sound clip
+			    clip.start();
+			    
+		} catch (UnsupportedAudioFileException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void stopSoundClip()
+	{
+		if (clip != null)
+			if (clip.isRunning())
+				clip.stop();
+		clipStage = 0;
 	}
 	
 	/**
