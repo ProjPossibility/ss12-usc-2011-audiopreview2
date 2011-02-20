@@ -17,7 +17,7 @@ public class MidiControl {
 	int[] instrumentVolumes = new int[16];
 	double[] scaledVolumes = new double[16];
 	Point3d[] instrumentPoints = new Point3d[16];
-	double volumeAverage = 0, scaleAverage;
+	double volumeAverage, scaleAverage;
 	File songFile, textFile;
 	Sequence sequence;
 	Sequencer sequencer;
@@ -29,9 +29,14 @@ public class MidiControl {
 	
 	private static final double ROOTTWO = Math.sqrt(2);
 	
+	/**
+	 * Default constructor
+	 */
 	public MidiControl()
 	{
 		//ripChannels(seat);
+		volumeAverage = 0;
+		scaleAverage = 0;
 	}
 	
 	/**public static void main(String[] args)
@@ -50,6 +55,10 @@ public class MidiControl {
 	public void ripChannels(SeatSection s)
 	{
 		seat = s;
+		
+		/**
+		 * MODIFY these two files depending on the midi and text file currently in use
+		 */
 		try
 		{
 			songFile = new File("midi/verdi_requiem.mid");
@@ -208,6 +217,12 @@ public class MidiControl {
 		}
 		volumeAverage = volumeAverage / (channels+1);
 		System.out.println("VAverage final" + volumeAverage);
+		
+		//reset average values for use
+		volumeAverage = 0;
+		scaleAverage = 0;
+		channels = 0;
+		
 	}
 	
 	/**
