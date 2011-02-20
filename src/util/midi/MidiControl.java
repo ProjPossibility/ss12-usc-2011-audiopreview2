@@ -61,12 +61,16 @@ public class MidiControl {
 	/** constant double value used for vector calculations */
 	private static final double ROOTTWO = Math.sqrt(2);
 	
+	/** boolean keeping track of if GM should be loaded */
+	boolean firstRun;
+	
 	/**
 	 * Default constructor
 	 */
 	public MidiControl()
 	{
 		//ripChannels(seat);
+		firstRun = true;
 	}
 	
 	/**public static void main(String[] args)
@@ -114,7 +118,11 @@ public class MidiControl {
             
             synthesizer = MidiSystem.getSynthesizer();
             synthesizer.open();
-            synthesizer.loadAllInstruments(MidiSystem.getSoundbank(new File("../midi/soundbank-deluxe.gm")));
+            if(firstRun)
+            {
+            	synthesizer.loadAllInstruments(MidiSystem.getSoundbank(new File("../midi/soundbank-deluxe.gm")));
+            	firstRun = false;
+            }
             sequencer.setSequence(sequence);
             
             
