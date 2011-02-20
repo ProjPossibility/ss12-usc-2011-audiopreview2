@@ -4,6 +4,11 @@ import java.awt.Color;
 
 import javax.swing.JApplet;
 
+/**
+ * The main applet.  Has a ConcertHallPanel that it adds to the screen and just runs.
+ * @author Zach
+ *
+ */
 public class MainApplet extends JApplet {
 	ConcertHallPanel c;
 	 public void init() {
