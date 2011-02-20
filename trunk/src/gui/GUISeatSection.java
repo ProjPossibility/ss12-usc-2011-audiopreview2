@@ -54,8 +54,12 @@ public class GUISeatSection extends JButton implements ActionListener{
 	 */
 	public GUISeatSection(ConcertHallPanel p,int row, int col){
 		parentPanel = p;
+		
 		String name = lookUpNameAndLocation(row, col);
+		voiceFile = new File("..\\images\\ConcertHall\\"+ name.concat(".png"));
+		
 		mySeatSection = new SeatSection(location, name, voiceFile);
+		
 		GSS_state = State.NOT_SELECTED;
 		addActionListener(this);
 		seatIcon = new ImageIcon();
@@ -141,10 +145,12 @@ public class GUISeatSection extends JButton implements ActionListener{
 	}
 	
 	/**
-	 * This will return the corresponding 
+	 * This will return the corresponding name and 3 component vector for 
+	 * that location based on the row and column
 	 * @param row
 	 * @param col
-	 * @return
+	 * @return The string name of that SeatSection as well as sets the location 
+	 * vector to it's corresponding 3 components
 	 */
 	public String lookUpNameAndLocation(int row, int col){
 		String name = " ";
@@ -153,11 +159,11 @@ public class GUISeatSection extends JButton implements ActionListener{
 		case 0:
 			switch(col){
 			case 0:
-				name = "East Balcony Behind";
+				name = "EastBalconyBehind";
 				location.set(-1,-2,.5);
 				break;
 			case 4:
-				name = "West Balcony Behind";
+				name = "WestBalconyBehind";
 				location.set(-1,2,.5);
 				break;
 			}
@@ -165,23 +171,23 @@ public class GUISeatSection extends JButton implements ActionListener{
 		case 1:
 			switch(col){
 			case 0:
-				name = "East Balcony Front";
+				name = "EastBalconyFront";
 				location.set(1.5,-2,.5);
 				break;
 			case 1:
-				name = "Front Orchestra East";
+				name = "FrontOrchestraEast";
 				location.set(1,-1,0);
 				break;
 			case 2:
-				name = "Front Orchestra Center";
+				name = "FrontOrchestraCenter";
 				location.set(1,0,0);
 				break;
 			case 3: 
-				name = "Front Orchestra West";
+				name = "FrontOrchestraWest";
 				location.set(1,1,0);
 				break;
 			case 4:
-				name = "West Balcony Front";
+				name = "WestBalconyFront";
 				location.set(1.5,2,.5);
 				break;
 			}
@@ -189,23 +195,23 @@ public class GUISeatSection extends JButton implements ActionListener{
 		case 2: 
 			switch(col){
 			case 0:
-				name = "Terrace East";
+				name = "TerraceEast";
 				location.set(4,-1,2);
 				break;
 			case 1:
-				name = "Orchestra Level East";
+				name = "OrchestraLevelEast";
 				location.set(2,-1,.5);
 				break;
 			case 2:
-				name = "Orchestra Level Center";
+				name = "OrchestraLevelCenter";
 				location.set(2,0,.5);
 				break;
 			case 3: 
-				name = "Orchestra Level West";
+				name = "OrchestraLevelWest";
 				location.set(2,1,.5);
 				break;
 			case 4: 
-				name = "Terrace West";
+				name = "TerraceWest";
 				location.set(4,1,2);
 				break;
 			}
@@ -213,15 +219,15 @@ public class GUISeatSection extends JButton implements ActionListener{
 		case 3: 
 			switch(col){
 			case 1:
-				name = "Mezzanine East";
+				name = "MezzanineEast";
 				location.set(3,-1,2);
 				break;
 			case 2:
-				name = "Mezzanine Center";
+				name = "MezzanineCenter";
 				location.set(3,0,2);
 				break;
 			case 3:
-				name = "Mezzanine West";
+				name = "MezzanineWest";
 				location.set(3,1,2);
 				break;
 			}
@@ -231,7 +237,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 	}
 
 	/**
-	 * 
+	 * Will notify 
 	 */
 	public void actionPerformed(ActionEvent arg0) {
 		System.out.println("button clicked");
