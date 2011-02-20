@@ -81,12 +81,6 @@ public class MidiControl {
 		
 		try
 		{
-			File f = new File("../midi/verdi_requiem.mid");
-			if(f.exists())
-			{
-				System.out.println("File found");
-			}
-			sequence = MidiSystem.getSequence(songFile);
             sequencer = MidiSystem.getSequencer(false);
             receiver = MidiSystem.getReceiver();
             // open the sequencer and wire up the receiver
@@ -268,7 +262,6 @@ public class MidiControl {
 		try {
 			sequencer.setSequence(sequence);
 		} catch (InvalidMidiDataException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		sequencer.start();
@@ -280,14 +273,12 @@ public class MidiControl {
             try {
 				volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, 0);
 			} catch (InvalidMidiDataException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
             //System.out.println(MidiSystem.getSynthesizer().getChannels()[i].getController(7));
             try {
 				MidiSystem.getReceiver().send(volumeMessage, -1);
 			} catch (MidiUnavailableException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         }
@@ -297,13 +288,11 @@ public class MidiControl {
                 try {
 					volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, 0);
 				} catch (InvalidMidiDataException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
                 try {
 					MidiSystem.getReceiver().send(volumeMessage, -1);
 				} catch (MidiUnavailableException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
         }
