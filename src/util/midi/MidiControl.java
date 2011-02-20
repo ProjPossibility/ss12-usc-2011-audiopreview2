@@ -344,21 +344,22 @@ public class MidiControl {
 		
 		ShortMessage volumeMessage = new ShortMessage();
 		
-		for(int i = 0; i < 9; i++)
+		for(int i = 0; i < 16; i++)
         {
             try {
-				volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, 0);
+				volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, instrumentVolumes[i]);
+				//System.out.println("blargh" + instrumentVolumes[i]);
 			} catch (InvalidMidiDataException e) {
 				e.printStackTrace();
 			}
             try {
-				MidiSystem.getReceiver().send(volumeMessage, -1);
-			} catch (MidiUnavailableException e) {
+				receiver.send(volumeMessage, -1);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
         }
         
-        
+        /**
         for (int i = 11; i < instruments.length; i++) {
                 try {
 					volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, 0);
@@ -370,7 +371,7 @@ public class MidiControl {
 				} catch (MidiUnavailableException e) {
 					e.printStackTrace();
 				}
-        }
+        }*/
         
 	}
 	
