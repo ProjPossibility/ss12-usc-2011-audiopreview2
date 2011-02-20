@@ -6,6 +6,11 @@ import javax.vecmath.Vector3d;
 import engine.DirectedInstrument;
 import engine.SeatSection;
 
+/**
+ * Test class for the DirectedInstrument class
+ * 
+ * @author Jonathan Sun
+ */
 public class DirectedInstrumentTester
 {
 	public static void main(String[] args)
