@@ -73,30 +73,27 @@ public class MidiControl {
 	/**
 	 * Default constructor
 	 */
-	public MidiControl()
+	public MidiControl(int fileNum)
 	{
 		//ripChannels(seat);
 		firstRun = true;
-		chooseSong();
+		chooseSong(fileNum);
 	}
 	
 	/**
 	 * Find out what file to load
 	 */
-	public void chooseSong()
+	public void chooseSong(int fileNum)
 	{
 		
-		try
+		if(fileNum == 1)
 		{
-			Scanner input = new Scanner(songLoad);
-			songName = input.nextLine();
-			input.close();
+			songName = "verdi_requiem";
 		}
-		catch(Exception e)
+		else
 		{
-			e.printStackTrace();
-		}
-		
+			songName = "swan_lake_22";
+		}		
 		
 	}
 	
@@ -328,7 +325,7 @@ public class MidiControl {
 	 */
 	public void play()
 	{
-		try{
+		/**try{
 			synthesizer = MidiSystem.getSynthesizer();
 	        synthesizer.open();
 			sequence = MidiSystem.getSequence(songFile);
@@ -343,17 +340,65 @@ public class MidiControl {
 	        transmitter.setReceiver(receiver);
 	        
 	        
-	        synthesizer.loadAllInstruments(MidiSystem.getSoundbank(new File("../midi/soundbank-deluxe.gm")));
+	        //synthesizer.loadAllInstruments(MidiSystem.getSoundbank(new File("../midi/soundbank-deluxe.gm")));
 	        sequencer.setSequence(sequence);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-		}
+		}*/
 		
-		sequencer.start();
+		//sequencer.start();
 		
-		ShortMessage volumeMessage = new ShortMessage();
+		
+		try{
+	        synthesizer = MidiSystem.getSynthesizer();
+	        synthesizer.open();
+	        receiver = synthesizer.getReceiver();
+	        sequencer = MidiSystem.getSequencer(false);
+	        sequencer.open();
+	        sequence = MidiSystem.getSequence(songFile);
+	        sequencer.setSequence(sequence);
+	        
+	        sequencer.start();
+	        transmitter = sequencer.getTransmitter();
+	        transmitter.setReceiver( receiver );
+	        javax.sound.midi.MidiChannel[] channels = synthesizer.getChannels();
+	        ShortMessage volumeMessage = new ShortMessage();
+	        
+	        for(int i = 0; i < channels.length; i++)
+	        {
+	            volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, instrumentVolumes[i]);
+	            MidiSystem.getReceiver().send(volumeMessage, -1);
+	        	//channels[i].controlChange(7, instrumentVolumes[i]);
+
+	        }
+	        //for(int i = 0; i < channels.length; i++)
+	        //{
+	            //System.out.println(synthesizer.getChannels());
+	        //}
+	        /**for(int i = 0; i < channels.length; i++)
+	        {
+	            if(i < 9 || i > 10)
+	                channels[i].allSoundOff();
+	        }*/
+	    }
+	    catch(Exception e){e.printStackTrace();}
+		
+		/**if (this.synthesizer != null) {
+			System.out.println("HOORAY");
+			// if its not null, then we know we can use the synthesizer to 
+			// change the volume
+			MidiChannel[] channels = this.synthesizer.getChannels();
+			// set the master volume for each channel
+			for (int i = 0; i < channels.length; i++) {
+				// change the percent value to a respective gain value
+				channels[i].controlChange(7, instrumentVolumes[i]);
+			}
+		}*/
+
+		
+		/**ShortMessage volumeMessage = new ShortMessage();
 		
 		for(int i = 0; i < 16; i++)
         {
@@ -369,7 +414,7 @@ public class MidiControl {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-        }
+        }*/
         
 	}
 	
