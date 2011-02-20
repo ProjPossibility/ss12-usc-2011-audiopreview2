@@ -38,7 +38,7 @@ public class MidiSynthesizerSample {
             sequencer.setSequence(sequence);
             sequencer.start();
             //setReverb(7);
-            setVolume(60);
+            setVolume(0);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e1) {

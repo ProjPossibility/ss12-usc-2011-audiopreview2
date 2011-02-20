@@ -329,9 +329,12 @@ public class MidiControl {
 	public void play()
 	{
 		try{
+			synthesizer = MidiSystem.getSynthesizer();
+	        synthesizer.open();
 			sequence = MidiSystem.getSequence(songFile);
-	        sequencer = MidiSystem.getSequencer(false);
+	        
 	        receiver = MidiSystem.getReceiver();
+	        sequencer = MidiSystem.getSequencer(false);
 	        // open the sequencer and wire up the receiver
 	        // and transmitter
 	
@@ -339,9 +342,8 @@ public class MidiControl {
 	        transmitter = sequencer.getTransmitter();
 	        transmitter.setReceiver(receiver);
 	        
-	        synthesizer = MidiSystem.getSynthesizer();
-	        synthesizer.open();
-	        //synthesizer.loadAllInstruments(MidiSystem.getSoundbank(new File("../midi/soundbank-deluxe.gm")));
+	        
+	        synthesizer.loadAllInstruments(MidiSystem.getSoundbank(new File("../midi/soundbank-deluxe.gm")));
 	        sequencer.setSequence(sequence);
 		}
 		catch(Exception e)
@@ -359,33 +361,15 @@ public class MidiControl {
             	if(instrumentVolumes[i] > 127)
             	{
             		instrumentVolumes[i] = 127;
-            		System.out.println("changing volume");
+            		System.out.println("lowering volume");
             	}
-				volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, instrumentVolumes[i]);
-				//System.out.println("blargh" + instrumentVolumes[i]);
-			} catch (InvalidMidiDataException e) {
-				e.printStackTrace();
-			}
-            try {
+				volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, 0);//instrumentVolumes[i]);       
 				receiver.send(volumeMessage, -1);
+				System.out.println("test " + instrumentVolumes[i]);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
         }
-        
-        /**
-        for (int i = 11; i < instruments.length; i++) {
-                try {
-					volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, 0);
-				} catch (InvalidMidiDataException e) {
-					e.printStackTrace();
-				}
-                try {
-					MidiSystem.getReceiver().send(volumeMessage, -1);
-				} catch (MidiUnavailableException e) {
-					e.printStackTrace();
-				}
-        }*/
         
 	}
 	
