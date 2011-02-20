@@ -199,26 +199,35 @@ public class MidiControl {
         				if(name.equals("TROMBONE"))
         				{
         					v = new Vector3d(1/ROOTTWO,-1/ROOTTWO,0);
+        					DirectedInstrument i = new DirectedInstrument(name, channels, volume, instrumentPoints[channels], v, (double)0.75);
+            				instruments[channels] = i;
         				}
         				else if(name.equals("TRUMPET"))
         				{
         					v = new Vector3d(1,0,0);
+        					DirectedInstrument i = new DirectedInstrument(name, channels, volume, instrumentPoints[channels], v, (double)0.75);
+            				instruments[channels] = i;
         				}
         				else if(name.equals("TUBA"))
         				{
         					v = new Vector3d(1/ROOTTWO,1/ROOTTWO,0);
+        					DirectedInstrument i = new DirectedInstrument(name, channels, volume, instrumentPoints[channels], v, (double)0.6);
+            				instruments[channels] = i;
         				}
         				else if(name.equals("FRENCHHORN"))
         				{
         					v = new Vector3d(-1.0,-0.5,0);
+        					DirectedInstrument i = new DirectedInstrument(name, channels, volume, instrumentPoints[channels], v, (double)0.6);
+            				instruments[channels] = i;
         				}
         				else
         				{
         					//default as tuba
         					v = new Vector3d(1/ROOTTWO,1/ROOTTWO,0);
+        					DirectedInstrument i = new DirectedInstrument(name, channels, volume, instrumentPoints[channels], v, (double)0.6);
+            				instruments[channels] = i;
         				}
-        				DirectedInstrument i = new DirectedInstrument(name, channels, volume, instrumentPoints[channels], v, (double)0.5);
-        				instruments[channels] = i;
+        				
         			}
         			else
         			{
@@ -250,7 +259,7 @@ public class MidiControl {
 	{
 		for(int i = 0; i < channels; i++)
 		{
-			instrumentVolumes[i] -= 20;
+			instrumentVolumes[i] -= 30;
 			System.out.println(instruments[i].getName()+" Instrument normalized volume " + i + " " + instrumentVolumes[i]);
 		}
 	}
@@ -347,6 +356,10 @@ public class MidiControl {
 		for(int i = 0; i < 16; i++)
         {
             try {
+            	if(instrumentVolumes[i] > 127)
+            	{
+            		instrumentVolumes[i] = 127;
+            	}
 				volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, instrumentVolumes[i]);
 				//System.out.println("blargh" + instrumentVolumes[i]);
 			} catch (InvalidMidiDataException e) {
