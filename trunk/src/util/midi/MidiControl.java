@@ -11,6 +11,14 @@ import engine.Instrument;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 
+/**
+ * 
+ * MidiControl.java
+ * Purpose:Interface between the GUI and the engine classes to process/edit the midi file
+ * @author Ryan
+ *
+ */
+
 public class MidiControl {
 	
 	Instrument[] instruments = new Instrument[16];
