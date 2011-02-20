@@ -34,17 +34,17 @@ public class MidiControl {
 	 */
 	public MidiControl()
 	{
-		ripChannels(seat);
+		//ripChannels(seat);
 		volumeAverage = 0;
 		scaleAverage = 0;
 	}
 	
-	public static void main(String[] args)
+	/**public static void main(String[] args)
 	{
 		MidiControl m = new MidiControl();
 		m.play();
 		
-	}
+	}*/
 	
 	
 	/**
@@ -61,8 +61,8 @@ public class MidiControl {
 		 */
 		try
 		{
-			songFile = new File("midi/verdi_requiem.mid");
-			textFile = new File("midi/verdi_requiem.txt");
+			songFile = new File("../midi/verdi_requiem.mid");
+			textFile = new File("../midi/verdi_requiem.txt");
 		}
 		catch(Exception e)
 		{
@@ -73,7 +73,7 @@ public class MidiControl {
 		
 		try
 		{
-			File f = new File("midi/verdi_requiem.mid");
+			File f = new File("../midi/verdi_requiem.mid");
 			if(f.exists())
 			{
 				System.out.println("File found");
@@ -90,7 +90,7 @@ public class MidiControl {
             
             synthesizer = MidiSystem.getSynthesizer();
             synthesizer.open();
-            synthesizer.loadAllInstruments(MidiSystem.getSoundbank(new File("midi/soundbank-deluxe.gm")));
+            synthesizer.loadAllInstruments(MidiSystem.getSoundbank(new File("../midi/soundbank-deluxe.gm")));
             sequencer.setSequence(sequence);
             
             
@@ -135,7 +135,7 @@ public class MidiControl {
         			}
         			catch(Exception e)
         			{
-        				System.out.println(e);
+        				e.printStackTrace();
         			}
         			if(directed)
         			{
@@ -175,7 +175,7 @@ public class MidiControl {
         	}
         	catch(Exception e)
         	{
-        		
+        		e.printStackTrace();
         	}
         	
         	changeVolumes();      
@@ -257,6 +257,12 @@ public class MidiControl {
 		{
 			System.out.println("Error in play");
 		}*/
+		try {
+			sequencer.setSequence(sequence);
+		} catch (InvalidMidiDataException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		sequencer.start();
 		
 		ShortMessage volumeMessage = new ShortMessage();
