@@ -75,8 +75,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 	
 	/**
 	 * Loads the two images using the grabImage method to get the images
-	 * 
-	 * @param 
+	 *  
 	 */
 	public void loadImages(){
 		selectedSeat = grabImage("..\\images\\ConcertHall\\"+sectionName.concat(".PNG"));
