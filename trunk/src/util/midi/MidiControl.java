@@ -181,7 +181,7 @@ public class MidiControl {
         					//default as tuba
         					v = new Vector3d(1/ROOTTWO,1/ROOTTWO,0);
         				}
-        				DirectedInstrument i = new DirectedInstrument(name, channels, volume, instrumentPoints[channels], new Vector3d(1,0,0), (double)0.5);
+        				DirectedInstrument i = new DirectedInstrument(name, channels, volume, instrumentPoints[channels], v, (double)0.5);
         				instruments[channels] = i;
         			}
         			else
