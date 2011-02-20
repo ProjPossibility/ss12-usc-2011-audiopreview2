@@ -27,6 +27,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	int lastMidSectionGroup;
 	int currentSectionSelected;
 	int lastRightSectionGroup;
+	Boolean inSubSectionMode;
 	
 	public  ConcertHallPanel()
 	{
@@ -35,7 +36,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		
 		JButton b = new JButton("");
 		b.setLocation(0, 0);
-		b.setSize(WINDOW_WIDTH, WINDOW_HEIGHT / 2);
+		b.setSize(100, 100);
 		
 		b.setBackground(Color.white);
 		b.setOpaque(true);
@@ -43,13 +44,14 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		add(b);
 		
 		setUpSectionGroups();
+		addKeyListener(this);
 	}
 	
 	public void setUpSectionGroups()
 	{
 		sectionGroups = new ArrayList<JButtonGroup>();
 		sectionGroups.add( new JButtonGroup(this, 2, State.NOT_HOVERING, 2));
-		sectionGroups.add( new JButtonGroup(this, 2, State.NOT_HOVERING, 3));
+		sectionGroups.add( new JButtonGroup(this, 1, State.NOT_HOVERING, 3));
 		lastLeftSectionGroup = 1;
 		
 		sectionGroups.add(  new JButtonGroup(this, 3, State.HOVERING, 1));
@@ -93,6 +95,8 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				else
 					sectionGroups.get(i).setLocation(600, height);
 			}
+			sectionGroups.get(i).setSize(sectionGroups.get(i).getWidth(), sectionGroups.get(i).getHeight());
+			add(sectionGroups.get(i));
 		}
 		
 		
@@ -105,6 +109,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	@Override
 	public void keyPressed(KeyEvent event) {
 		// TODO Auto-generated method stub
+		System.out.println("key input detected");
 		int keypressed = event.getKeyCode();
 		switch(keypressed)
 		{
