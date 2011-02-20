@@ -47,7 +47,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 	Image blueSeat;
 	
 	/**
-	 * 
+	 * Overloaded Constructor for the GUISeatSection class 
 	 * @param Parent panel used so we can report to button clicks.
 	 * @param row int used for mapping the location to the actual GUI.
 	 * @param col int used for mapping the location to the actual GUI.
@@ -56,7 +56,10 @@ public class GUISeatSection extends JButton implements ActionListener{
 		parentPanel = p;
 		
 		String name = lookUpNameAndLocation(row, col);
-		voiceFile = new File("..\\images\\ConcertHall\\"+ name.concat(".png"));
+		
+		/** This will instantiate the voice file using the file name retrieved 
+		 * previously concatenated with the directory*/
+		voiceFile = new File("..\\images\\ConcertHall\\"+ name.concat(".wav"));
 		
 		mySeatSection = new SeatSection(location, name, voiceFile);
 		
