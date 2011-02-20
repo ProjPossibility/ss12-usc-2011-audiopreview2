@@ -28,6 +28,8 @@ public class GUISeatSection extends JButton implements ActionListener{
 	/**	Own Point3d location used for holding the 3 component vector values*/
 	Point3d location;
 	
+	String sectionName;
+	
 	/** File voiceFile to be loaded and passed to the SeatSection */
 	File voiceFile;
 	
@@ -41,7 +43,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 	ConcertHallPanel parentPanel;
 	
 	/** Image to put on the ImageIcon for selected states*/
-	Image redSeat;
+	Image selectedSeat;
 	
 	/** Image to put on the ImageIcon for not selected states*/
 	Image blueSeat;
@@ -55,13 +57,13 @@ public class GUISeatSection extends JButton implements ActionListener{
 	public GUISeatSection(ConcertHallPanel p,int row, int col){
 		parentPanel = p;
 		
-		String name = lookUpNameAndLocation(row, col);
+		String sectionName = lookUpNameAndLocation(row, col);
 		
 		/** This will instantiate the voice file using the file name retrieved 
 		 * previously concatenated with the directory*/
-		voiceFile = new File("..\\sounds\\ChristinaSounds\\"+ name.concat(".wav"));
+		voiceFile = new File("..\\sounds\\ChristinaSounds\\"+ sectionName.concat(".wav"));
 		
-		mySeatSection = new SeatSection(location, name, voiceFile);
+		mySeatSection = new SeatSection(location, sectionName, voiceFile);
 		
 		GSS_state = State.NOT_SELECTED;
 		addActionListener(this);
@@ -76,7 +78,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 	 * @param none
 	 */
 	public void loadImages(){
-		redSeat = grabImage("..\\images\\seatButton.png");
+		selectedSeat = grabImage("..\\images\\"+sectionName +".PNG");
 		blueSeat = grabImage("..\\images\\seatButtonSelected.png");
 	}
 	
@@ -136,7 +138,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 		/** This will set the ImageIcon to it's corresponding ConcertHall Image*/
 		case SELECTED:
 			this.setBackground(Color.RED);
-			seatIcon.setImage(redSeat);
+			seatIcon.setImage(selectedSeat);
 			this.setIcon(seatIcon);
 			//will have the blue chains image icon.
 			///this.setBackground(Color.RED);
