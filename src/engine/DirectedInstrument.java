@@ -27,7 +27,8 @@ public class DirectedInstrument extends Instrument
 	/** The backwards percentage of the sound */
 	protected double iBackwardPortion;
 	
-	/** Makes a new DirectedInstrument
+	/** 
+	 * Makes a new DirectedInstrument
 	 * @param name the instrument name
 	 * @param channelNum the MIDI channel number
 	 * @param channelVol the balanced channel volume
@@ -45,6 +46,7 @@ public class DirectedInstrument extends Instrument
 	}
 
 	/**
+	 * Calculates the adjusted volume of this instrument at a given seat.
 	 * @return the adjusted volume at a seat
 	 * @param seat the seat to calculate the volume at
 	 */

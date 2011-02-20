@@ -53,6 +53,7 @@ public abstract class Instrument
 	public abstract double getAdjustedVolume(SeatSection s);
 	
 	/**
+	 * Returns the name of the instrument
 	 * @return the name of the instrument
 	 */
 	public String getName()
@@ -61,6 +62,7 @@ public abstract class Instrument
 	}
 	
 	/**
+	 * Returns the MIDI channel number of the instrument
 	 * @return the MIDI channel number of the instrument
 	 */
 	public int getChannelNumber()
@@ -69,6 +71,7 @@ public abstract class Instrument
 	}
 	
 	/**
+	 * Returns the MIDI balanced channel volume
 	 * @return the MIDI balanced channel volume
 	 */
 	public int getChannelVolume()
@@ -77,6 +80,7 @@ public abstract class Instrument
 	}
 	
 	/**
+	 * Returns the location of the instrument
 	 * @return the location of the instrument
 	 */
 	public Point3d getLocation()
@@ -85,6 +89,7 @@ public abstract class Instrument
 	}
 	
 	/**
+	 * Returns a string representation of the instrument
 	 * @return a string representation of the instrument
 	 */
 	public String toString()
