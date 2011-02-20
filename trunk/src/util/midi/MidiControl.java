@@ -64,6 +64,12 @@ public class MidiControl {
 	/** boolean keeping track of if GM should be loaded */
 	boolean firstRun;
 	
+	/** File to be read that tells program what song to load */
+	File songLoad = new File("../midi/song_information.txt");
+	
+	/** String that stores song name */
+	String songName;
+	
 	/**
 	 * Default constructor
 	 */
@@ -71,6 +77,27 @@ public class MidiControl {
 	{
 		//ripChannels(seat);
 		firstRun = true;
+		chooseSong();
+	}
+	
+	/**
+	 * Find out what file to load
+	 */
+	public void chooseSong()
+	{
+		
+		try
+		{
+			Scanner input = new Scanner(songLoad);
+			songName = input.nextLine();
+			input.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	/**public static void main(String[] args)
@@ -95,8 +122,8 @@ public class MidiControl {
 		 */
 		try
 		{
-			songFile = new File("../midi/verdi_requiem.mid");
-			textFile = new File("../midi/verdi_requiem.txt");
+			songFile = new File("../midi/"+songName+".mid");
+			textFile = new File("../midi/"+songName+".txt");
 		}
 		catch(Exception e)
 		{
@@ -183,6 +210,10 @@ public class MidiControl {
         				else if(name.equals("TUBA"))
         				{
         					v = new Vector3d(1/ROOTTWO,1/ROOTTWO,0);
+        				}
+        				else if(name.equals("FRENCHHORN"))
+        				{
+        					v = new Vector3d(-1.0,-0.5,0);
         				}
         				else
         				{
