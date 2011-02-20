@@ -12,7 +12,7 @@ import javax.vecmath.Point3d;
 public class UndirectedInstrument extends Instrument
 {
 	/** The default adjustment distance factor */
-	private static final double DISTANCE_DROP_FACTOR = 1.2;
+	private static final double DISTANCE_DROP_FACTOR = 1.4;
 	
 	/**
 	 * Constructs a new Instrument
