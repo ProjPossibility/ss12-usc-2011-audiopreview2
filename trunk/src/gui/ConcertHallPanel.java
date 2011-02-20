@@ -85,7 +85,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	private void PlaceConcertImage()
 	{
 		//orchestraImage.setSize(width, height)
-		orchestraImage.setLocation(250, 15);
+		orchestraImage.setLocation(213, 0);
 		add(orchestraImage);
 	}
 	
@@ -108,7 +108,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				}
 				seatsections[i][j] = new GUISeatSection(this, i,j);
 				//seatsections[i][j].setLabel(i + " , " + j);
-				seatsections[i][j].setLocation(88 + 125 * j, 90 + 125 * i);
+				seatsections[i][j].setLocation(88 + 125 * j, 100 + 125 * i);
 				seatsections[i][j].setSize( 125 ,  125 );
 				add(seatsections[i][j]);
 			}
@@ -268,23 +268,16 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 			for (int j = 0; j < NUM_COLS; j++)
 			{
 				if (seatsections[i][j] != null)
-				seatsections[i][j].setGSS_Color(State.NOT_SELECTED);
-			}
-		}
-		for (int i = 0; i < NUM_ROWS; i++)
-		{
-			for (int j = 0; j < NUM_COLS; j++)
-			{
-				if (seatsections[i][j] != null)
 				if (seatsections[i][j] == guiseat)
 				{
-					guiseat.setGSS_Color(State.SELECTED);
+					//guiseat.setGSS_Color(State.SELECTED);
 					currentSelectedRow = i;
 					currentSelectedCol = j;
 				}
 			}
 		}
-		//updateButtonGroupDisplays();
+		updateButtonGroupDisplays();
+		
 		playSoundDescription();
 		setFocusable(true);
 		requestFocus();

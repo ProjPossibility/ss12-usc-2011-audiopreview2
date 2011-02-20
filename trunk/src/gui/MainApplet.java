@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Color;
+
 import javax.swing.JApplet;
 
 public class MainApplet extends JApplet {
@@ -9,6 +11,7 @@ public class MainApplet extends JApplet {
 		    cp.setLayout(new FlowLayout());
 		    cp.add(b1);
 		    cp.add(b2);*/
+		 
 		 System.out.println("init called");
 		 c = new ConcertHallPanel();
 		 setSize(c.WINDOW_WIDTH, c.WINDOW_HEIGHT);
@@ -23,6 +26,7 @@ public class MainApplet extends JApplet {
 			this.add(c);
 			c.setFocusable(true);
 			c.requestFocus();
+			c.setBackground(Color.DARK_GRAY);
 			
 		  }
 }
