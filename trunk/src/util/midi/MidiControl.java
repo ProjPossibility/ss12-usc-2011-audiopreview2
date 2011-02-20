@@ -202,8 +202,21 @@ public class MidiControl {
         		e.printStackTrace();
         	}
         	
+        	normalizeVolumes();
         	changeVolumes();      
 		
+	}
+	
+	/**
+	 * Reduces the volumes of every channel to prevent volume maxing out
+	 */
+	public void normalizeVolumes()
+	{
+		for(int i = 0; i < channels; i++)
+		{
+			instrumentVolumes[i] -= 20;
+			System.out.println(instruments[i].getName()+" Instrument normalized volume " + i + " " + instrumentVolumes[i]);
+		}
 	}
 	
 	/**
@@ -223,7 +236,7 @@ public class MidiControl {
 		System.out.println("VAverage" + volumeAverage);
 		for(int i = 0; i < channels; i++)
 		{
-			//SeatSection seatA = new SeatSection(new Point3d(-1,2,.5), "lol", songFile); use if applet is not passing a seat
+			//SeatSection seatA = new SeatSection(new Point3d(-1,2,.5), "lol", songFile); //use if applet is not passing a seat
 			scaledVolumes[i] = instruments[i].getAdjustedVolume(seat);
 			System.out.println("Scaled volume " + i + " " + scaledVolumes[i]);
 		}
@@ -273,12 +286,12 @@ public class MidiControl {
 	        
 	        synthesizer = MidiSystem.getSynthesizer();
 	        synthesizer.open();
-	        synthesizer.loadAllInstruments(MidiSystem.getSoundbank(new File("../midi/soundbank-deluxe.gm")));
+	        //synthesizer.loadAllInstruments(MidiSystem.getSoundbank(new File("../midi/soundbank-deluxe.gm")));
 	        sequencer.setSequence(sequence);
 		}
 		catch(Exception e)
 		{
-			System.out.println("Error in play");
+			e.printStackTrace();
 		}
 		
 		/**try {
