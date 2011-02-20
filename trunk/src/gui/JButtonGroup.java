@@ -29,6 +29,7 @@ public class JButtonGroup extends JPanel implements ActionListener {
 		changePanelSize(numGroups);
 		group = new ArrayList<JButton>();
 		addButtons(numGroups);
+		setGroupsIcon(state);
 	}
 	
 	public int getFloor(){
@@ -62,8 +63,6 @@ public class JButtonGroup extends JPanel implements ActionListener {
 			JButton temp = new JButton(" ");
 			temp.setSize(BUTTON_WIDTH,BUTTON_HEIGHT);
 			storeButton(temp);
-			//make separate calls to set the imageicon
-			
 		}
 	}
 	//Handle the different clicks
