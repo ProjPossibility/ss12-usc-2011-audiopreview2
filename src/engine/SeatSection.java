@@ -40,7 +40,7 @@ public class SeatSection {
 	/**
 	 * returns the location of the SeatSection
 	 * 
-	 * @return
+	 * @return the location
 	 */
 	public Point3d getLocation(){
 		return loc;
@@ -49,7 +49,7 @@ public class SeatSection {
 	/**
 	 * Returns the name of the section
 	 * 
-	 * @return
+	 * @return the name
 	 */
 	public String getName()
 	{
@@ -59,7 +59,7 @@ public class SeatSection {
 	/**
 	 * Returns the voiceFile to be played
 	 * 
-	 * @return
+	 * @return the voice file
 	 */
 	public File getVoiceFile()
 	{
@@ -68,6 +68,7 @@ public class SeatSection {
 	
 	/**
 	 * returns the name and location of the seat
+	 * @return a string representation of this object
 	 */
 	public String toString()
 	{
