@@ -94,6 +94,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	public void keyPressed(KeyEvent event) {
 		// TODO Auto-generated method stub
 		int keypressed = event.getKeyCode();
+		//midicontrol.stop();
 		switch(keypressed)
 		{
 			case KeyEvent.VK_UP:
@@ -145,6 +146,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 			case KeyEvent.VK_SPACE:
 				//seatsections[currentSelectedRow][currentSelectedCol]
 				//play soundbyte
+				midicontrol.stop();
 				midicontrol.play();
 				break;
 		}
@@ -159,6 +161,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				seatsections[i][j].setGSS_Color(State.NOT_SELECTED);
 			}
 		seatsections[currentSelectedRow][currentSelectedCol].setGSS_Color(State.SELECTED);
+		midicontrol.stop();
 		midicontrol.ripChannels(seatsections[currentSelectedRow][currentSelectedCol].getSeatSection());
 	}
 	
@@ -166,6 +169,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	{
 		//play description name
 		//seatsections[currentSelectedRow][currentSelectedCol]
+		
 	}
 	
 	public void buttonClicked(GUISeatSection guiseat)
