@@ -1,23 +1,35 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.vecmath.Point3d;
 import engine.SeatSection;
 
 enum State {NOT_SELECTED,SELECTED};
 
-public class GUISeatSection extends JButton{
+public class GUISeatSection extends JButton implements ActionListener{
 	SeatSection mySeatSection;
 	Point3d location;
 	File voiceFile;
 	State GSS_state;
+	ImageIcon redSeats;
+	ImageIcon blueSeats;
+	ConcertHallPanel parent;
 	
-	public GUISeatSection(int row, int col){
+	public GUISeatSection(ConcertHallPanel p,int row, int col){
+		loadImages();
+		parent = p;
 		String name = lookUpNameAndLocation(row, col);
 		mySeatSection = new SeatSection(location, name, voiceFile);
 		GSS_state = State.NOT_SELECTED;
+	}
+	
+	public void loadImages(){
 		
 	}
 	
@@ -26,18 +38,22 @@ public class GUISeatSection extends JButton{
 	}
 	public void setState(State selectedOrNot){
 		GSS_state = selectedOrNot;
-		
+	}
+	public SeatSection getSeatSection(){
+		return mySeatSection;
 	}
 	
 	public void setGSS_Color(State selectedOrNot){
 		switch(selectedOrNot){
 		case NOT_SELECTED:
+			//will have red chains image icon.
 			this.setBackground(Color.BLUE);
 			this.setForeground(Color.BLUE);
 			this.setBorderPainted(false);
 			this.setOpaque(true);
 			break;
 		case SELECTED:
+			//will have the blue chains image icon.
 			this.setBackground(Color.RED);
 			this.setForeground(Color.RED);
 			this.setBorderPainted(false);
@@ -128,5 +144,10 @@ public class GUISeatSection extends JButton{
 			break;
 		}
 		return name;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		parent.buttonClicked(this);
 	}
 }
