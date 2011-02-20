@@ -326,7 +326,14 @@ public class MidiControl {
 	 */
 	public void stop()
 	{
-		sequencer.stop();
+		try
+		{
+			sequencer.stop();
+		}
+		catch(Exception e)
+		{
+			
+		}
 	}
 
 }
