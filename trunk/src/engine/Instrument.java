@@ -12,19 +12,30 @@ public abstract class Instrument
 {
 	private String iName;
 	private MidiChannel iChannel;
+	private int channelNumber;
 	private Point3d iLocation;
 	
 	/**
 	 * Constructs a new Instrument
 	 */
-	public Instrument(String name, MidiChannel channel, Point3d location)
+	public Instrument(String name, MidiChannel channel, int channelNum, Point3d location)
 	{
 		iName = name;
+		iChannel = channel;
+		channelNumber = channelNum;
+		iLocation = location;
 	}
+	
+	public abstract double getVolume();
 	
 	public String getName()
 	{
 		return iName;
+	}
+	
+	public int getChannelNumber()
+	{
+		return channelNumber;
 	}
 	
 	public MidiChannel getChannel()
