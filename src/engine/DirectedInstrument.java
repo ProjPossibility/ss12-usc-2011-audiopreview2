@@ -7,7 +7,6 @@ public class DirectedInstrument extends Instrument
 		
 	}
 	
-	@Override
 	public double getVolume()
 	{
 		// TODO Auto-generated method stub

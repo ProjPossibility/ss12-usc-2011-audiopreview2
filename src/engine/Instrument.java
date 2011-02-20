@@ -1,6 +1,5 @@
 package engine;
 
-import javax.sound.midi.MidiChannel;
 import javax.vecmath.Point3d;
 
 /**
@@ -11,7 +10,6 @@ import javax.vecmath.Point3d;
 public abstract class Instrument
 {
 	private String iName;
-	private MidiChannel iChannel;
 	private int channelNumber;
 	private Point3d iLocation;
 	
@@ -26,10 +24,9 @@ public abstract class Instrument
 	/**
 	 * Constructs a new Instrument
 	 */
-	public Instrument(String name, MidiChannel channel, int channelNum, Point3d location)
+	public Instrument(String name, int channelNum, Point3d location)
 	{
 		iName = name;
-		iChannel = channel;
 		channelNumber = channelNum;
 		iLocation = location;
 	}
@@ -44,11 +41,6 @@ public abstract class Instrument
 	public int getChannelNumber()
 	{
 		return channelNumber;
-	}
-	
-	public MidiChannel getChannel()
-	{
-		return iChannel;
 	}
 	
 	public Point3d getLocation()
