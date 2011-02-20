@@ -57,7 +57,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 	public GUISeatSection(ConcertHallPanel p,int row, int col){
 		parentPanel = p;
 		
-		String sectionName = lookUpNameAndLocation(row, col);
+		sectionName = lookUpNameAndLocation(row, col);
 		
 		/** This will instantiate the voice file using the file name retrieved 
 		 * previously concatenated with the directory*/
