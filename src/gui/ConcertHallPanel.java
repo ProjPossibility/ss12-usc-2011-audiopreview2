@@ -75,6 +75,8 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		ImageIcon tempIcon = new ImageIcon(orchestra);
 		orchestraImage.setIcon(tempIcon);
 		//orchestraImage.setSize(orchestra.getHeight(new ImageObserver(), orchestra.getHeight(new ImageOvserver()));
+		System.out.println("ConcertImageWidth: " + tempIcon.getIconWidth());
+		orchestraImage.setSize(tempIcon.getIconWidth(), tempIcon.getIconHeight());
 		PlaceConcertImage();
 		
 		//return toReturn;
@@ -83,6 +85,8 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	private void PlaceConcertImage()
 	{
 		//orchestraImage.setSize(width, height)
+		orchestraImage.setLocation(250, 15);
+		add(orchestraImage);
 	}
 	
 	private void setUpSectionGroups()
@@ -104,7 +108,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				}
 				seatsections[i][j] = new GUISeatSection(this, i,j);
 				//seatsections[i][j].setLabel(i + " , " + j);
-				seatsections[i][j].setLocation(50 + 125 * j, 50 + 125 * i);
+				seatsections[i][j].setLocation(88 + 125 * j, 90 + 125 * i);
 				seatsections[i][j].setSize( 125 ,  125 );
 				add(seatsections[i][j]);
 			}
