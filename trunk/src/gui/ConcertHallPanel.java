@@ -40,33 +40,59 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	 * Height of JPanel
 	 */
 	public int WINDOW_HEIGHT = 600;
-	
+	/**
+	 * controller for how the song is changed
+	 */
 	MidiControl midicontrol = new MidiControl();
-	Rectangle bgrect;
 	
+	/**
+	 * the number of rows
+	 */
 	int NUM_ROWS = 4;
+	/**
+	 * the number of cols
+	 */
 	int NUM_COLS = 5;
+	/**
+	 * 2d array of seatsections
+	 */
 	GUISeatSection[][] seatsections;
 	
-	int lastRightSectionGroup;
+	/**
+	 * current row of seats cursor is on
+	 */
 	int currentSelectedRow = 1;
+	
+	/**
+	 * current col of seats cursor is on
+	 */
 	int currentSelectedCol = 2;
-	Boolean inSubSectionMode;
+	
+	/**
+	 * the sound clip that tells what seat you have selected
+	 */
 	Clip clip;
+	/**
+	 * the image of the band playing at the top
+	 */
 	JLabel orchestraImage;
 	
+	/**
+	 * make the rows of buttons
+	 */
 	public  ConcertHallPanel()
 	{
-		bgrect = new Rectangle(0,0,WINDOW_WIDTH,WINDOW_WIDTH);
 		setLayout(null);
 		
 		setUpSectionGroups();
 		addKeyListener(this);
-		inSubSectionMode = false;
 		LoadConcertImage();
 		
 	}
 	
+	/**
+	 * the image of the band playing at the top
+	 */
 	private void LoadConcertImage()
 	{
 		orchestraImage = new JLabel();
@@ -82,6 +108,9 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		//return toReturn;
 	}
 	
+	/**
+	 * center the image of the band at the top and add it to the screen
+	 */
 	private void PlaceConcertImage()
 	{
 		//orchestraImage.setSize(width, height)
@@ -89,6 +118,9 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		add(orchestraImage);
 	}
 	
+	/**
+	 * set up the 2d array of seats
+	 */
 	private void setUpSectionGroups()
 	{
 		seatsections = new GUISeatSection[4][5];
@@ -194,6 +226,10 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		}
 	}
 	
+	/**
+	 * set currently selected button to SELECTED and rip the channels, 
+	 * then set all other buttons to NOT_SELECTED
+	 */
 	private void updateButtonGroupDisplays()
 	{
 		for (int i = 0; i < NUM_ROWS; i++)
@@ -207,6 +243,9 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		midicontrol.ripChannels(seatsections[currentSelectedRow][currentSelectedCol].getSeatSection());
 	}
 	
+	/**
+	 * play the sound clip of seat location selected
+	 */
 	private void playSoundDescription()
 	{
 		//play description name
@@ -261,6 +300,10 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		
 	}
 	
+	/**
+	 * handle a button clicked, called from GUISeat
+	 * @param guiseat  the seat that was clicked on
+	 */
 	public void buttonClicked(GUISeatSection guiseat)
 	{
 		for (int i = 0; i < NUM_ROWS; i++)
@@ -284,10 +327,13 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		System.out.println("a button was clicked");
 	}
 	
+	
 	//List<JButtonGroup> sectionGroups;
 	//int lastLeftSectionGroup;
 	//int lastMidSectionGroup;
 	//int currentSectionSelected;
+	//int lastRightSectionGroup;
+	//Boolean inSubSectionMode;
 	
 	/*public void setUpSectionGroups()
 	{
