@@ -59,7 +59,7 @@ public class GUISeatSection extends JButton implements ActionListener{
 		
 		/** This will instantiate the voice file using the file name retrieved 
 		 * previously concatenated with the directory*/
-		voiceFile = new File("..\\images\\ConcertHall\\"+ name.concat(".wav"));
+		voiceFile = new File("..\\sounds\\ChristinaSounds\\"+ name.concat(".wav"));
 		
 		mySeatSection = new SeatSection(location, name, voiceFile);
 		
