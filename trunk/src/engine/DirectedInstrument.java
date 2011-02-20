@@ -3,8 +3,6 @@ package engine;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3d;
 
-import com.jonsun.debug.DebugUtil;
-
 /**
  * The DirectedInstrument class represents instruments like trombones that
  * have a directed sound and thus do not spread evenly in all directions.

@@ -5,7 +5,7 @@ import javax.vecmath.Point3d;
 import engine.SeatSection;
 import engine.UndirectedInstrument;
 
-public class UndirectedTest {
+public class UndirectedInstrumentTester {
 
 	public static void main(String [] args)
 	{
