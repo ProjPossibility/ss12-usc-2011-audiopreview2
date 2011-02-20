@@ -285,7 +285,7 @@ public class MidiControl {
 		//Get the adjusted volumes
 		for(int i = 0; i < channels; i++)
 		{
-			//SeatSection seatA = new SeatSection(new Point3d(-1,2,.5), "lol", songFile); //use if applet is not passing a seat
+			//SeatSection seatA = new SeatSection(new Point3d(-1,2,.5), "testSeat", songFile); //use if applet is not passing a seat
 			scaledVolumes[i] = instruments[i].getAdjustedVolume(seat);
 			System.out.println("Scaled volume " + i + " " + scaledVolumes[i]);
 		}
@@ -359,6 +359,7 @@ public class MidiControl {
             	if(instrumentVolumes[i] > 127)
             	{
             		instrumentVolumes[i] = 127;
+            		System.out.println("changing volume");
             	}
 				volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, instrumentVolumes[i]);
 				//System.out.println("blargh" + instrumentVolumes[i]);
