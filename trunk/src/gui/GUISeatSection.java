@@ -12,7 +12,7 @@ import javax.vecmath.Point3d;
 import engine.SeatSection;
 
 /**
- * State enum to determine the current state of the classes
+ * State enum to determine the current state of the buttons
  * @author Andy
  *
  */
