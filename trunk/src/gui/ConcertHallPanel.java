@@ -2,11 +2,14 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +23,9 @@ import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import util.midi.MidiControl;
@@ -48,6 +53,7 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	int currentSelectedCol = 2;
 	Boolean inSubSectionMode;
 	Clip clip;
+	JLabel orchestraImage;
 	
 	public  ConcertHallPanel()
 	{
@@ -57,6 +63,26 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		setUpSectionGroups();
 		addKeyListener(this);
 		inSubSectionMode = false;
+		LoadConcertImage();
+		
+	}
+	
+	private void LoadConcertImage()
+	{
+		orchestraImage = new JLabel();
+		//File sourceimage = new File("..\\images\\"+sectionName +".PNG");
+		Image orchestra = Toolkit.getDefaultToolkit().getImage("..\\images\\orchestraSmall.png");
+		ImageIcon tempIcon = new ImageIcon(orchestra);
+		orchestraImage.setIcon(tempIcon);
+		//orchestraImage.setSize(orchestra.getHeight(new ImageObserver(), orchestra.getHeight(new ImageOvserver()));
+		PlaceConcertImage();
+		
+		//return toReturn;
+	}
+	
+	private void PlaceConcertImage()
+	{
+		//orchestraImage.setSize(width, height)
 	}
 	
 	private void setUpSectionGroups()
