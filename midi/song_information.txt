@@ -1,1 +1,2 @@
-verdi_requiem
+song_1 = verdi_requiem
+song_2 = swan lake part 22

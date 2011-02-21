@@ -88,11 +88,13 @@ public class MidiControl {
 		
 		if(fileNum == 1)
 		{
-			songName = "verdi_requiem";
+			songName = "song_1";
+			//songName = "verdi_requiem";
 		}
 		else
 		{
-			songName = "swan_lake_22";
+			songName = "song_2";
+			//songName = "swan_lake_22";
 		}		
 		
 	}
