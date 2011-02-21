@@ -46,6 +46,15 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 	MidiControl midicontrol2 = new MidiControl(2);
 	
 	/**
+	 * true if song1 is playing
+	 */
+	Boolean song1Playing = false;
+	/**
+	 * true if song2 is playing
+	 */
+	Boolean song2Playing = false;
+	
+	/**
 	 * the number of rows
 	 */
 	int NUM_ROWS = 4;
@@ -157,6 +166,28 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 			}
 		updateButtonGroupDisplays();
 		playSoundDescription();
+		stopSoundClip();
+		try 
+		{
+			File soundFile;
+			
+				soundFile = new File("..\\sounds\\UseArrowKeys.wav");
+				
+			 AudioInputStream sound;
+			 sound = AudioSystem.getAudioInputStream(soundFile);
+			DataLine.Info info = new DataLine.Info(Clip.class, sound.getFormat());			
+				clip = (Clip) AudioSystem.getLine(info);
+				//clip.close();
+				clip.open(sound);
+				clip.start();
+			    
+		} catch (UnsupportedAudioFileException e2) {
+			e2.printStackTrace();
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
 	}
 
 	
@@ -231,14 +262,20 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 				stopSoundClip();
 				midicontrol2.stop();
 				midicontrol1.stop();
-				midicontrol1.play();
+				if (!song1Playing)
+					midicontrol1.play();
+				song2Playing = false;
+				song1Playing = !song1Playing;
 				System.out.println("Playing the first song");
 				break;
 			case KeyEvent.VK_2:
 				stopSoundClip();
 				midicontrol1.stop();
 				midicontrol2.stop();
-				midicontrol2.play();
+				if (!song2Playing)
+					midicontrol2.play();
+				song1Playing = false;
+				song2Playing = !song2Playing;
 				System.out.println("Playing the second song");
 				break;
 		}
@@ -260,8 +297,10 @@ public class ConcertHallPanel extends JPanel implements KeyListener
 		
 		SeatSection seat = seatsections[currentSelectedRow][currentSelectedCol].getSeatSection();
 
+		song1Playing = false;
 		midicontrol1.stop();
 		midicontrol1.ripChannels(seat);
+		song2Playing = false;
 		midicontrol2.stop();
 		midicontrol2.ripChannels(seat);
 	}
