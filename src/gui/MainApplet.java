@@ -3,6 +3,8 @@ package gui;
 import java.awt.Color;
 
 import javax.swing.JApplet;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * The main applet.  Has a ConcertHallPanel that it adds to the screen and just runs.
@@ -32,6 +34,9 @@ public class MainApplet extends JApplet {
 			c.setFocusable(true);
 			c.requestFocus();
 			c.setBackground(Color.DARK_GRAY);
+			 this.setName("my name");
+			 
+
 			
 		  }
 }
