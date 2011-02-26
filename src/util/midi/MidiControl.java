@@ -120,7 +120,9 @@ public class MidiControl {
 		{
 			songName = "song_2";
 			//songName = "swan_lake_22";
-		}		
+		}	
+		
+		//System.out.println("test");
 		
 	}
 	
